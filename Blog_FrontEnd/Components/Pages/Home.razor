@@ -1,7 +1,37 @@
 ﻿@page "/"
-
+@using ModelsLibrary.Dto
+@rendermode InteractiveServer
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<button @onclick="Fetch">Fetch User Data</button>
+@if (user != null)
+{
+    <h3>User ID: @user.Username</h3>
+    <p>Email: @user.Email</p>
+}
+else
+{ 
+    <p>Loading...</p>
+}
+
+@code {
+    public UserDto user;
+    public HttpClient httpClient = new HttpClient();
+
+    public async Task Fetch()
+    {
+        try
+        {
+            user = await httpClient.GetFromJsonAsync<UserDto>("https://localhost:44321/User/api/GetUser=1");
+            Console.WriteLine("Fetch executed");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching user data: {ex.Message}");
+        }
+    }
+}

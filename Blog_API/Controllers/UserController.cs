@@ -19,18 +19,20 @@ namespace Blog_API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
-        [ProducesResponseType(200,Type = typeof(IEnumerable<User>))]
+        [HttpGet("api/GetUsers")]
+        [ProducesResponseType(200,Type = typeof(IEnumerable<UserDto>))]
         public IActionResult GetUsers()
         {
-            var users = userRepository.GetUsers();
+            var users = mapper.Map<List<UserDto>>( userRepository.GetUsers());
 
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState);
             else return Ok(users);
         
         }
-        [HttpGet("{userid}")]
+
+        [HttpGet("api/GetUser={userid}")]
+        [ProducesResponseType(200, Type = typeof(UserDto))]
         public IActionResult GetUser(int userid)
         {
             if (userRepository.Exists(userid))  

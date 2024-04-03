@@ -28,3 +28,7 @@ D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\obj\Debug\net8.0\re
 D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\obj\Debug\net8.0\Blog_FrontEnd.pdb
 D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\obj\Debug\net8.0\Blog_FrontEnd.genruntimeconfig.cache
 D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\obj\Debug\net8.0\ref\Blog_FrontEnd.dll
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\bin\Debug\net8.0\ModelsLibrary.dll
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\bin\Debug\net8.0\ModelsLibrary.pdb
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\obj\Debug\net8.0\Blog_FrontEnd.csproj.AssemblyReference.cache
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\Blog_FrontEnd\obj\Debug\net8.0\Blog_Fro.9EEDF16E.Up2Date

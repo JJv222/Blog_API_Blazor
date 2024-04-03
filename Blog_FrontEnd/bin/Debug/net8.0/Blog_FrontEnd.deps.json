@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v8.0": {
       "Blog_FrontEnd/1.0.0": {
+        "dependencies": {
+          "ModelsLibrary": "1.0.0"
+        },
         "runtime": {
           "Blog_FrontEnd.dll": {}
+        }
+      },
+      "ModelsLibrary/1.0.0": {
+        "runtime": {
+          "ModelsLibrary.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Blog_FrontEnd/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ModelsLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
