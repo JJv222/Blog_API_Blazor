@@ -10,3 +10,15 @@ E:\Dane\C#\Blazor Blog and API\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.dll
 E:\Dane\C#\Blazor Blog and API\ModelsLibrary\obj\Debug\net8.0\refint\ModelsLibrary.dll
 E:\Dane\C#\Blazor Blog and API\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.pdb
 E:\Dane\C#\Blazor Blog and API\ModelsLibrary\obj\Debug\net8.0\ref\ModelsLibrary.dll
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\bin\Debug\net8.0\ModelsLibrary.deps.json
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\bin\Debug\net8.0\ModelsLibrary.dll
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\bin\Debug\net8.0\ModelsLibrary.pdb
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.AssemblyInfoInputs.cache
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.AssemblyInfo.cs
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.csproj.CoreCompileInputs.cache
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.sourcelink.json
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.dll
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\refint\ModelsLibrary.dll
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ModelsLibrary.pdb
+D:\Projekty - VS\Visual Studio\Blog_api_blazor\ModelsLibrary\obj\Debug\net8.0\ref\ModelsLibrary.dll

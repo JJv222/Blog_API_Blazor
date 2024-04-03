@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ve2Oc0gFzzIKqIcibLPV3HD15YEuXavQdr0t0rWA0YHNxU/tjS3uIu0VY2+LkzXPSmEOTatVAW6sHxnqMz99MQ==",
+  "dgSpecHash": "6OY6OgPiqeZXjZZBonSfHhMmeNmiP32QzkJZROZLJBFKXHxyy0dhQVGWbAep6LtpKDofJW9WC0X3+JkP92MwgQ==",
   "success": true,
-  "projectFilePath": "E:\\Dane\\C#\\Blazor Blog and API\\Blog_API\\Blog_API.csproj",
+  "projectFilePath": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Blog_API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\JakubAndrzejewski\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\JakubAndrzejewski\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\JakubAndrzejewski\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\JakubAndrzejewski\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
