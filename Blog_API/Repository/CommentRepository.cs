@@ -23,12 +23,16 @@ namespace Blog_API.Repository
 
         public int GetCommentCount(int PostId)
         {
-            return blogContext.Comments.Where(x=>x.Id== PostId).Count();
+            return blogContext.Comments.Where(x=>x.PostId== PostId).Count();
         }
 
         public ICollection<Comment> GetCommentsByPost(int PostId)
         {
             return blogContext.Comments.Where(x=> x.PostId == PostId).ToList();
+        }
+        public ICollection<Comment> GetCommentsAll()
+        {
+            return blogContext.Comments.ToList();
         }
     }
 }

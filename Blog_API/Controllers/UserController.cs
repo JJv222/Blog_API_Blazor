@@ -19,11 +19,11 @@ namespace Blog_API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("api/GetUsers")]
+        [HttpGet("api/GetAllUsers")]
         [ProducesResponseType(200,Type = typeof(IEnumerable<UserDto>))]
-        public IActionResult GetUsers()
+        public IActionResult GetAllUsers()
         {
-            var users = mapper.Map<List<UserDto>>( userRepository.GetUsers());
+            var users = mapper.Map<List<UserDto>>( userRepository.GetAllUsers());
 
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState);

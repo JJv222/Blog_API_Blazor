@@ -23,7 +23,7 @@ namespace Blog_API.Repository
            return blogContext.Users.Where(p => p.Id == id).FirstOrDefault();
         }
 
-        public ICollection<User> GetUsers()
+        public ICollection<User> GetAllUsers()
         {
             return blogContext.Users.OrderBy(x => x.Id).ToList();
         }
