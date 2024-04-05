@@ -19,13 +19,23 @@ namespace Blog_API.Repository
 
         public ICollection<Post> GetAllPosts()
         { 
-            return blogcontext.Posts.OrderBy(x => x.Id).ToList(); 
+            var posts= blogcontext.Posts.OrderBy(x => x.Id).ToList(); 
+            for(int i = 0; i < posts.Count; i++)
+            {
+                posts[i].User = (User)blogcontext.Users.Where(x => x.Id == posts[i].UserId).FirstOrDefault();
+            }
+            return posts;
         }
 
         public Post GetPostById(int id)
         {
             var post = blogcontext.Posts.FirstOrDefault(x => x.Id == id);
+            post.User = blogcontext.Users.Where(x => x.Id == post.UserId).FirstOrDefault();
             return post;
+        }
+        public int CountPosts()
+        {
+            return blogcontext.Posts.Count();
         }
     }
 }

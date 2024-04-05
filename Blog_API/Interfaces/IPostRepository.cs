@@ -8,6 +8,7 @@ namespace Blog_API.Interfaces
         bool Exists (int id );
         ICollection<Post> GetAllPosts ();
         Post GetPostById ( int id );
+        int CountPosts();
 
     }
 }

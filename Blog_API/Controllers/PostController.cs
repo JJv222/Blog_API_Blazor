@@ -13,11 +13,23 @@ namespace Blog_API.Controllers
     {
         private readonly IPostRepository postRepository;
         private readonly ICommentRepository commentRepository;
+        private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
-        public PostController(IPostRepository postRepository, IMapper mapper, ICommentRepository comentRepository) { 
+        public PostController(IPostRepository postRepository, IMapper mapper, ICommentRepository comentRepository, IUserRepository userRepository) { 
             this.postRepository = postRepository;
             this.mapper = mapper;
             this.commentRepository = comentRepository;
+            this.userRepository = userRepository;
+        }
+        [HttpGet("api/GetPostsNumber")]
+        [ProducesResponseType(200, Type = typeof(int))]
+        public IActionResult GetPostsNumber()
+        {
+            var ammount = postRepository.CountPosts();
+            
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            return Ok(ammount);
         }
 
         [HttpGet("api/GetAllPostsBasic")]
@@ -25,7 +37,6 @@ namespace Blog_API.Controllers
         public IActionResult GetAllPostsBasic()
         {
             var posts = mapper.Map<List<PostDto>>(postRepository.GetAllPosts());
-           
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             else return Ok(posts);
@@ -38,8 +49,9 @@ namespace Blog_API.Controllers
             if (postRepository.Exists(postId))
                 NotFound(ModelState);
 
+            var post1 = postRepository.GetPostById(postId);
+            Console.Write(post1.User.Username + " " + post1.User.Email);
             var post = mapper.Map<PostDto>(postRepository.GetPostById(postId));
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             else return Ok(post);
