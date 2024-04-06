@@ -3,21 +3,16 @@
   "WorkspaceRootPath": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\post.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\blog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21A00800-0063-49F3-9D94-E7F0C9B78D75}|..\\ModelsLibrary\\ModelsLibrary.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\modelslibrary\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21A00800-0063-49F3-9D94-E7F0C9B78D75}|..\\ModelsLibrary\\ModelsLibrary.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\modelslibrary\\dto\\postdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_api\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|solutionrelative:controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_api\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|solutionrelative:repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 234,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,67 +34,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserDto.cs",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\ModelsLibrary\\Dto\\UserDto.cs",
-              "RelativeDocumentMoniker": "..\\ModelsLibrary\\Dto\\UserDto.cs",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\ModelsLibrary\\Dto\\UserDto.cs",
-              "RelativeToolTip": "..\\ModelsLibrary\\Dto\\UserDto.cs",
+              "DocumentIndex": 2,
+              "Title": "Home.razor",
+              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Home.razor",
+              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Home.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-05T21:14:04.243Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-06T14:05:36.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA4AAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-06T14:05:39.301Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Blog.razor",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
-              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
-              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAMwAoAAABIAAAA",
+              "Title": "Post.razor",
+              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Post.razor",
+              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Post.razor",
+              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Post.razor",
+              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Post.razor",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABUAAABfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-05T20:53:55.322Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PostDto.cs",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\ModelsLibrary\\Dto\\PostDto.cs",
-              "RelativeDocumentMoniker": "..\\ModelsLibrary\\Dto\\PostDto.cs",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\ModelsLibrary\\Dto\\PostDto.cs",
-              "RelativeToolTip": "..\\ModelsLibrary\\Dto\\PostDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-05T20:46:01.571Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PostRepository.cs",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Repository\\PostRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\PostRepository.cs",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Repository\\PostRepository.cs",
-              "RelativeToolTip": "Repository\\PostRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-05T20:45:54.466Z",
+              "WhenOpened": "2024-04-06T12:03:46.895Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PostController.cs",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Controllers\\PostController.cs",
-              "RelativeToolTip": "Controllers\\PostController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAQwCYAAABOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-05T20:36:52.643Z",
+              "Title": "Blog.razor",
+              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
+              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
+              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
+              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog.razor",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAADQAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-05T20:53:55.322Z",
               "EditorCaption": ""
             }
           ]

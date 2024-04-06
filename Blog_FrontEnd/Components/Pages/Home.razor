@@ -4,19 +4,10 @@
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
+<div>
+    Welcom to my Super Blog App, I made it using Blazor server and ASP .NET core API with SQLite database. Enjoyee !!
+</div>
 
-Welcome to your new app.
-
-<button @onclick="Fetch">Fetch User Data</button>
-@if (user != null)
-{
-    <h3>User ID: @user.Username</h3>
-    <p>Email: @user.Email</p>
-}
-else
-{ 
-    <p>Loading...</p>
-}
 
 @code {
     public UserDto user;

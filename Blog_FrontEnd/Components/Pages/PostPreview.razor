@@ -1,0 +1,26 @@
+﻿@using ModelsLibrary.Dto
+
+<div class="col-md-3 border rounded alert-primary m-3 py-2 px-3">
+    <h5 class="fw-bold text-md-center">@post.Title</h5>
+
+    <div class="small text-muted">
+        <p>Created by: <span class="font-italic">@post.User.Username</span></p>
+        <p>Date: @post.Date</p>
+        <div class="d-flex justify-content-center">
+            <button class="active btn btn-sm btn-outline-secondary" @onclick="() => SetId(post.Id)">kliknij mnie</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public PostDto post { get; set; }
+    [Parameter] 
+    public EventCallback<int> ReturnPostId { get; set; }
+
+    private void SetId(int id)
+    {
+        ReturnPostId.InvokeAsync(id);
+    }
+}

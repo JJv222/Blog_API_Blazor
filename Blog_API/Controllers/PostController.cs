@@ -50,7 +50,6 @@ namespace Blog_API.Controllers
                 NotFound(ModelState);
 
             var post1 = postRepository.GetPostById(postId);
-            Console.Write(post1.User.Username + " " + post1.User.Email);
             var post = mapper.Map<PostDto>(postRepository.GetPostById(postId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
