@@ -25,6 +25,7 @@ namespace Blog_API.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Date")
@@ -53,6 +54,7 @@ namespace Blog_API.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Date")
@@ -60,6 +62,7 @@ namespace Blog_API.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasMaxLength(60)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
@@ -79,10 +82,12 @@ namespace Blog_API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
+                        .HasMaxLength(60)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Role")
@@ -90,6 +95,7 @@ namespace Blog_API.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
+                        .HasMaxLength(35)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
