@@ -64,11 +64,33 @@ namespace Blog_API.Controllers
                   NotFound(ModelState);
 
             var posts = mapper.Map<PostDto>(postRepository.GetPostById(postId));
-            posts.Comments = mapper.Map<List<CommentDto>>(commentRepository.GetCommentsByPost(postId));
 
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState); 
             else return Ok(posts);
+        }
+
+
+        ///Post Method
+        [HttpPost("api/CreatePost={UserName}")]
+        [ProducesResponseType(201)]
+        public IActionResult CreatePost([FromBody] PostDto post,string UserName)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var post1 = mapper.Map<Post>(post);
+            var User1 = userRepository.GetUser(UserName);
+
+            post1.UserId = User1.Id;
+
+            if (!postRepository.CreatePost(post1))
+            {
+                return StatusCode(500,ModelState);
+            }
+            
+            return Ok();
+            
         }
     }
 }

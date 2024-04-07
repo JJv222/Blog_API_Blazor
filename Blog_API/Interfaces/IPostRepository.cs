@@ -9,6 +9,7 @@ namespace Blog_API.Interfaces
         ICollection<Post> GetAllPosts ();
         Post GetPostById ( int id );
         int CountPosts();
-
+        bool SaveChanges();
+        bool CreatePost(Post post);
     }
 }

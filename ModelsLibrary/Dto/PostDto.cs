@@ -15,7 +15,7 @@ namespace ModelsLibrary.Dto
         public DateTime Date { get; set; } = DateTime.Now;
         [StringLength(1000)]
         public string Content { get; set; }
-        public UserDto User { get; set; }
+        public UserDto? User { get; set; }
 		public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
     }
 }

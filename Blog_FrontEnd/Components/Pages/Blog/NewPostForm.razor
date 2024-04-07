@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using ModelsLibrary.Dto
+@inject NavigationManager NavigationManager
+
+@if (DisplayForm)
+{
+    <EditForm Model="@NewPost" OnValidSubmit="CheckNewPost">
+        <div class="mb-3">
+            <label>Title</label>
+            <InputText @bind-Value="NewPost.Title" class="form-control" placeholder="New Post.." />
+        </div>
+        <div class="mb-3">
+            <label>Content</label>
+            <InputText @bind-Value="NewPost.Content" class="form-control" placeholder="New Content.." />
+        </div>
+        <div class="mb-3 d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+    </EditForm>
+    <button class="btn btn-warning" @onclick="CancelForm">Cancel Adding New Post</button>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="(()=>DisplayForm=!DisplayForm)">Add New Post</button>
+}
+
+
+@code {
+    private bool DisplayForm { get; set; }
+
+    [CascadingParameter]
+    public HttpClient httpClient { get; set; }
+
+    [SupplyParameterFromForm]
+    private PostDto NewPost { get; set; } = new PostDto();
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        DisplayForm = false;
+    }
+
+    private async Task CheckNewPost()
+    {
+        if (string.IsNullOrEmpty(NewPost.Title) || string.IsNullOrEmpty(NewPost.Content)){
+            return;
+        }
+        var authenticationState = await authenticationStateTask;
+        string Username2 = authenticationState.User.Identity.Name;
+        NewPost.Date = DateTime.Today;
+        //Post method
+        var response = await httpClient.PostAsJsonAsync($"https://localhost:44321/Post/api/CreatePost={Username2}", NewPost);
+        NavigationManager.NavigateTo("/Blog", true);
+    }
+
+    private void CancelForm()
+    {
+        DisplayForm = false;
+        NewPost = new PostDto();
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using Blog_API.Data;
 using Blog_API.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using ModelsLibrary;
 using ModelsLibrary.Dto;
 
@@ -18,24 +19,29 @@ namespace Blog_API.Repository
         }
 
         public ICollection<Post> GetAllPosts()
-        { 
-            var posts= blogcontext.Posts.OrderBy(x => x.Id).ToList(); 
-            for(int i = 0; i < posts.Count; i++)
-            {
-                posts[i].User = (User)blogcontext.Users.Where(x => x.Id == posts[i].UserId).FirstOrDefault();
-            }
-            return posts;
+        {
+            return blogcontext.Posts.Include(p => p.User).Include(p => p.Comments).ToList();
         }
 
         public Post GetPostById(int id)
         {
-            var post = blogcontext.Posts.FirstOrDefault(x => x.Id == id);
-            post.User = blogcontext.Users.Where(x => x.Id == post.UserId).FirstOrDefault();
-            return post;
+            return blogcontext.Posts.Include(p=> p.User).Include(p=> p.Comments).FirstOrDefault(x=>x.Id == id);
         }
         public int CountPosts()
         {
             return blogcontext.Posts.Count();
+        }
+
+        public bool SaveChanges()
+        {
+            var saved = blogcontext.SaveChanges();
+            return saved >= 0 ? true : false;
+        }
+
+        public bool CreatePost(Post post)
+        {
+            blogcontext.Add(post);
+            return SaveChanges();
         }
     }
 }

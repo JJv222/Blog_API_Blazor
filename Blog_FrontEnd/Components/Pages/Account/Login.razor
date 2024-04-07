@@ -14,7 +14,7 @@
         <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm">
             <DataAnnotationsValidator />
             <div class="mb-3">
-                <label>user Name</label>
+                <label>Username</label>
                 <InputText @bind-Value="Model.Username" class="form-control" placeholder="Username" />
                 <ValidationMessage For="@(() => Model.Username)" />
             </div>
@@ -61,6 +61,7 @@
         }
         var claims = new List<Claim>
         {
+            new Claim("UserId", userAccount.Id.ToString()), // Custom claim (not in "ClaimTypes")
             new Claim(ClaimTypes.Name, userAccount.Username),
             new Claim(ClaimTypes.Role, EnumConverter.EnumToString(userAccount.Role))
         };

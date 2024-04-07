@@ -34,7 +34,7 @@ namespace Blog_API.Controllers
         
         }
 
-        [HttpGet("api/GetUser={userid}")]
+        [HttpGet("api/GetUserById={userid}")]
         [ProducesResponseType(200, Type = typeof(UserDto))]
         public IActionResult GetUser(int userid)
         {
@@ -43,6 +43,20 @@ namespace Blog_API.Controllers
 
             var user = mapper.Map<UserDto>( userRepository.GetUser(userid));
             user.Password = null;
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            else return Ok(user);
+        }
+
+
+        [HttpGet("api/GetUserByName={username}")]
+        [ProducesResponseType(200, Type = typeof(UserDto))]
+        public IActionResult GetUser(string username)
+        {
+            if (userRepository.Exists(username))
+                NotFound(ModelState);
+
+            var user = mapper.Map<UserDto>(userRepository.GetUser(username));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             else return Ok(user);

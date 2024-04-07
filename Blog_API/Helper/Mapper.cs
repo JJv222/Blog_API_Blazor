@@ -8,8 +8,11 @@ namespace Blog_API.Helper
     {
         public Mapper() {
             CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
             CreateMap<Post,PostDto>();
+            CreateMap<PostDto, Post>();
             CreateMap<Comment, CommentDto>();
+            CreateMap<CommentDto, Comment>();
         }
     }
 }

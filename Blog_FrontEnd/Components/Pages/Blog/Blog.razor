@@ -1,0 +1,66 @@
+﻿@page "/Blog"
+
+@using Microsoft.AspNetCore.Authorization
+@using ModelsLibrary.Dto
+@rendermode InteractiveServer
+
+@if(posts is not null)
+{
+   <CascadingValue Value="@httpClient">
+   @if(DisplayPosts){
+       <AuthorizeView Roles="Admin">
+            <NewPostForm></NewPostForm>
+       </AuthorizeView>
+        <div class="row m-2">
+        @foreach(var post in posts)
+        {
+            <PostPreview post="@post" ReturnPostId="SetId"></PostPreview>
+        }
+        </div>
+   }
+   else
+   {
+       <Post post="@_post" ReturnToPosts="BackToPosts"></Post>
+   }
+    </CascadingValue>
+}
+
+
+@code {
+    [CascadingParameter]
+    public PostDto _post { get; set; }
+
+    [Parameter]
+    public int PostId { get; set; }
+
+    private bool DisplayPosts;
+
+    private List<PostDto> posts = new List<PostDto>();
+
+    [CascadingParameter]
+    public HttpClient httpClient { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        httpClient = new HttpClient();
+        PostId = 0;
+        DisplayPosts = true;
+        posts = await httpClient.GetFromJsonAsync<List<PostDto>>("https://localhost:44321/Post/api/GetAllPostsBasic");
+    }
+
+    private void SetId(int iD)
+    {
+        PostId = iD;
+        _post=posts.Find(p=>p.Id==PostId);
+        DisplayPosts = false;
+    }
+
+    private void BackToPosts()
+    {
+        DisplayPosts = true;
+        _post = null;
+        PostId = 0;
+    }
+
+}
