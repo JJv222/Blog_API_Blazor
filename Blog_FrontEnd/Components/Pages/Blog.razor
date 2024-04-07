@@ -1,4 +1,6 @@
 ﻿@page "/Blog"
+
+@using Microsoft.AspNetCore.Authorization
 @using ModelsLibrary.Dto
 @rendermode InteractiveServer
 
@@ -19,6 +21,8 @@
    }
     </CascadingValue>
 }
+
+
 @code {
     [CascadingParameter]
     public PostDto _post { get; set; }
