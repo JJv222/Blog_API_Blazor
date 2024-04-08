@@ -34,5 +34,17 @@ namespace Blog_API.Repository
         {
             return blogContext.Comments.ToList();
         }
+
+        public bool SaveChanges()
+        {
+            var saved = blogContext.SaveChanges();
+            return saved >= 0 ? true : false;
+        }
+
+        public bool CreateComment(Comment comment)
+        {
+            blogContext.Add(comment);
+            return SaveChanges();
+        }
     }
 }

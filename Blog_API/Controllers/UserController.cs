@@ -41,7 +41,7 @@ namespace Blog_API.Controllers
             if (userRepository.Exists(userid))  
                 NotFound(ModelState);
 
-            var user = mapper.Map<UserDto>( userRepository.GetUser(userid));
+            var user = mapper.Map<UserDto>( userRepository.GetUserById(userid));
             user.Password = null;
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -56,7 +56,7 @@ namespace Blog_API.Controllers
             if (userRepository.Exists(username))
                 NotFound(ModelState);
 
-            var user = mapper.Map<UserDto>(userRepository.GetUser(username));
+            var user = mapper.Map<UserDto>(userRepository.GetUserByName(username));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             else return Ok(user);
@@ -69,7 +69,7 @@ namespace Blog_API.Controllers
             if (userRepository.Exists(username))
                 NotFound(ModelState);
 
-            var user = mapper.Map<UserDto>(userRepository.GetUser(username));
+            var user = mapper.Map<UserDto>(userRepository.GetUserByName(username));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

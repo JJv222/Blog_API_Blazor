@@ -32,7 +32,7 @@ namespace Blog_API.Controllers
             return Ok(ammount);
         }
 
-        [HttpGet("api/GetAllPostsBasic")]
+        [HttpGet("api/GetAllPosts")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PostDto>))]
         public IActionResult GetAllPostsBasic()
         {
@@ -42,20 +42,6 @@ namespace Blog_API.Controllers
             else return Ok(posts);
         }
 
-        [HttpGet("api/GetPostBasic={postId}")]
-        [ProducesResponseType(200, Type = typeof(PostDto))]
-        public IActionResult GetPostBasic(int postId)
-        {
-            if (postRepository.Exists(postId))
-                NotFound(ModelState);
-
-            var post1 = postRepository.GetPostById(postId);
-            var post = mapper.Map<PostDto>(postRepository.GetPostById(postId));
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            else return Ok(post);
-        }
-
         [HttpGet("api/GetPost={postId}")]
         [ProducesResponseType(200, Type = typeof(PostDto))]
         public IActionResult GetPost(int postId)
@@ -63,11 +49,11 @@ namespace Blog_API.Controllers
             if(postRepository.Exists(postId)) 
                   NotFound(ModelState);
 
-            var posts = mapper.Map<PostDto>(postRepository.GetPostById(postId));
+            var post = mapper.Map<PostDto>(postRepository.GetPostById(postId));
 
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState); 
-            else return Ok(posts);
+            else return Ok(post);
         }
 
 
@@ -80,7 +66,7 @@ namespace Blog_API.Controllers
                 return BadRequest(ModelState);
 
             var post1 = mapper.Map<Post>(post);
-            var User1 = userRepository.GetUser(UserName);
+            var User1 = userRepository.GetUserByName(UserName);
 
             post1.UserId = User1.Id;
 

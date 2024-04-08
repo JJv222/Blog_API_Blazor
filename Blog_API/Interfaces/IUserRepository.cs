@@ -7,7 +7,7 @@ namespace Blog_API.Interfaces
         bool Exists(int id);
         bool Exists(string username);
         ICollection<User> GetAllUsers();
-        User GetUser(int id);
-        User GetUser(string username);
+        User GetUserById(int id);
+        User GetUserByName(string username);
     }
 }

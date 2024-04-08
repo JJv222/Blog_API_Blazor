@@ -8,7 +8,7 @@
 {
    <CascadingValue Value="@httpClient">
    @if(DisplayPosts){
-       <AuthorizeView Roles="Admin">
+       <AuthorizeView Roles="Admin,User">
             <NewPostForm></NewPostForm>
        </AuthorizeView>
         <div class="row m-2">
@@ -20,7 +20,9 @@
    }
    else
    {
-       <Post post="@_post" ReturnToPosts="BackToPosts"></Post>
+       <CascadingValue Value="@post">
+       <Post ReturnToPosts="BackToPosts"></Post>
+        </CascadingValue>
    }
     </CascadingValue>
 }
@@ -28,7 +30,10 @@
 
 @code {
     [CascadingParameter]
-    public PostDto _post { get; set; }
+    public HttpClient httpClient { get; set; }
+
+    [CascadingParameter]
+    public PostDto post { get; set; }
 
     [Parameter]
     public int PostId { get; set; }
@@ -37,29 +42,25 @@
 
     private List<PostDto> posts = new List<PostDto>();
 
-    [CascadingParameter]
-    public HttpClient httpClient { get; set; }
-
-
     protected override async Task OnInitializedAsync()
     {
         httpClient = new HttpClient();
         PostId = 0;
         DisplayPosts = true;
-        posts = await httpClient.GetFromJsonAsync<List<PostDto>>("https://localhost:44321/Post/api/GetAllPostsBasic");
+        posts = await httpClient.GetFromJsonAsync<List<PostDto>>("https://localhost:44321/Post/api/GetAllPosts");
     }
 
     private void SetId(int iD)
     {
         PostId = iD;
-        _post=posts.Find(p=>p.Id==PostId);
+        post=posts.Find(p=>p.Id==PostId);
         DisplayPosts = false;
     }
 
     private void BackToPosts()
     {
         DisplayPosts = true;
-        _post = null;
+        post = null;
         PostId = 0;
     }
 

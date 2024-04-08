@@ -21,11 +21,11 @@ namespace Blog_API.Repository
         {
             return (blogContext.Users.FirstOrDefault(x => x.Username == username) is not null) ? true : false;
         }
-        public User GetUser(int id)
+        public User GetUserById(int id)
         {
            return blogContext.Users.Where(p => p.Id == id).FirstOrDefault();
         }
-        public User GetUser(string username)
+        public User GetUserByName(string username)
         {
             return blogContext.Users.Where(p => p.Username == username).FirstOrDefault();
         }

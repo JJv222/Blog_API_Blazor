@@ -20,12 +20,28 @@ namespace Blog_API.Repository
 
         public ICollection<Post> GetAllPosts()
         {
-            return blogcontext.Posts.Include(p => p.User).Include(p => p.Comments).ToList();
+            var posts = blogcontext.Posts.Include(p => p.User).Include(p => p.Comments).ToList();
+            foreach (var post in posts){
+                post.User.Password = null;
+                foreach(var com in post.Comments)
+                    com.User.Password = null;
+            }
+            return posts;
         }
 
         public Post GetPostById(int id)
         {
-            return blogcontext.Posts.Include(p=> p.User).Include(p=> p.Comments).FirstOrDefault(x=>x.Id == id);
+            var post= blogcontext.Posts
+                               .Include(p => p.User)
+                               .Include(p => p.Comments)
+                                   .ThenInclude(c => c.User)
+                               .FirstOrDefault(x => x.Id == id);
+            post.User.Password = null;
+            foreach (var _post in post.Comments)
+            {
+                _post.User.Password = null;
+            }
+            return post;
         }
         public int CountPosts()
         {

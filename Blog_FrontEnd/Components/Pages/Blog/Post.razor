@@ -26,6 +26,9 @@
                 </div>
 
                 <h3 class="mb-3">Comments</h3>
+                <AuthorizeView>
+                    <NewCommentForm AddedComment="RefreshPost"></NewCommentForm>
+                </AuthorizeView>
                 @if(post.Comments.Count > 0){
                     @foreach (var comment in post.Comments)
                     {
@@ -35,7 +38,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <p class="card-text" style="font-style:italic">
-                                            <small class="text-muted">Commented by: @post.User.Username</small>
+                                            <small class="text-muted">Commented by: @(comment.User?.Username ?? "Unknown User")</small>
                                         </p>
                                      </div>
                                     <div class="col">
@@ -64,16 +67,16 @@
 </div>
 
 @code {
-    [Parameter]
-    public PostDto post { get; set; }
-
     [CascadingParameter]
     public HttpClient httpClient { get; set; }
+
+    [CascadingParameter]
+    public PostDto post { get; set; }
 
     [Parameter]
     public EventCallback ReturnToPosts { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    private async Task RefreshPost()
     {
         post = await httpClient.GetFromJsonAsync<PostDto>($"https://localhost:44321/Post/api/GetPost={post.Id}");
     }
