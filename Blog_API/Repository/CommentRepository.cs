@@ -1,6 +1,7 @@
 ﻿using Blog_API.Data;
 using Blog_API.Interfaces;
 using ModelsLibrary;
+using ModelsLibrary.CommentDto;
 
 namespace Blog_API.Repository
 {
@@ -8,12 +9,13 @@ namespace Blog_API.Repository
     {
         private readonly BlogContext blogContext;
 
-        public CommentRepository(BlogContext context) {
+        public CommentRepository(BlogContext context)
+        {
             blogContext = context;
         }
         public bool Exists(int Id)
         {
-          return (blogContext.Comments.FirstOrDefault(x=>x.Id==Id) is not null)? true : false;
+            return (blogContext.Comments.FirstOrDefault(x => x.Id == Id) is not null) ? true : false;
         }
 
         public Comment GetCommentById(int Id)
@@ -23,12 +25,12 @@ namespace Blog_API.Repository
 
         public int GetCommentCount(int PostId)
         {
-            return blogContext.Comments.Where(x=>x.PostId== PostId).Count();
+            return blogContext.Comments.Where(x => x.PostId == PostId).Count();
         }
 
         public ICollection<Comment> GetCommentsByPost(int PostId)
         {
-            return blogContext.Comments.Where(x=> x.PostId == PostId).ToList();
+            return blogContext.Comments.Where(x => x.PostId == PostId).ToList();
         }
         public ICollection<Comment> GetCommentsAll()
         {
@@ -45,6 +47,18 @@ namespace Blog_API.Repository
         {
             blogContext.Add(comment);
             return SaveChanges();
+        }
+
+        public Comment CommentCreateToComment(CommentDtoCreate commentCreate,int userId)
+        {
+            return new Comment
+            {
+                Date = commentCreate.Date,
+                Content = commentCreate.Content,
+                PostId = commentCreate.PostId,
+                UserId = userId
+            };
+            
         }
     }
 }

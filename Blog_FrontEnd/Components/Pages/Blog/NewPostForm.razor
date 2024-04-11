@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Authorization
-@using ModelsLibrary.Dto
+@using ModelsLibrary.Enums
+@using ModelsLibrary.PostDto
+@using ModelsLibrary.UserDto
 @inject NavigationManager NavigationManager
 
 @if (DisplayForm)
@@ -34,10 +36,13 @@ else
     private bool DisplayForm { get; set; }
 
     [CascadingParameter]
+    public string ApiLink { get; set; }
+
+    [CascadingParameter]
     public HttpClient httpClient { get; set; }
 
     [SupplyParameterFromForm]
-    private PostDto NewPost { get; set; } = new PostDto();
+    private PostDtoCreateRequest NewPost { get; set; } = new PostDtoCreateRequest();
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -55,11 +60,18 @@ else
         if (string.IsNullOrEmpty(NewPost.Title) || string.IsNullOrEmpty(NewPost.Content)){
             return;
         }
+
         var authenticationState = await authenticationStateTask;
-        string Username2 = authenticationState.User.Identity.Name;
+        NewPost.User = new UserDto()
+                {
+                    Username = authenticationState.User.Identity.Name,
+                    Role = EnumConverter.StringToEnum(authenticationState.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value),
+                    Email = authenticationState.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
+                };
+
         NewPost.Date = DateTime.Now;
         //Post method
-        var response = await httpClient.PostAsJsonAsync($"https://localhost:44321/Post/api/CreatePost={Username2}", NewPost);
+        var response = await httpClient.PostAsJsonAsync(ApiLink + "Post/Create",NewPost ); 
 
         if(response.IsSuccessStatusCode)
             NavigationManager.NavigateTo("/Blog", true);
@@ -72,6 +84,6 @@ else
     private void CancelForm()
     {
         DisplayForm = false;
-        NewPost = new PostDto();
+        NewPost = new PostDtoCreateRequest();
     }
 }

@@ -2,7 +2,7 @@
 using Blog_API.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ModelsLibrary;
-using ModelsLibrary.Dto;
+using ModelsLibrary.PostDto;
 
 namespace Blog_API.Repository
 {
@@ -13,51 +13,59 @@ namespace Blog_API.Repository
         public PostRepository(BlogContext context) {
             blogcontext = context;
         }
-        public bool Exists(int id)
-        {
-            return (blogcontext.Posts.FirstOrDefault(x => x.Id == id) is not null) ? true: false;
-        }
 
-        public ICollection<Post> GetAllPosts()
-        {
-            var posts = blogcontext.Posts.Include(p => p.User).Include(p => p.Comments).ToList();
-            foreach (var post in posts){
-                post.User.Password = null;
-                foreach(var com in post.Comments)
-                    com.User.Password = null;
-            }
-            return posts;
-        }
-
-        public Post GetPostById(int id)
-        {
-            var post= blogcontext.Posts
-                               .Include(p => p.User)
-                               .Include(p => p.Comments)
-                                   .ThenInclude(c => c.User)
-                               .FirstOrDefault(x => x.Id == id);
-            post.User.Password = null;
-            foreach (var _post in post.Comments)
-            {
-                _post.User.Password = null;
-            }
-            return post;
-        }
         public int CountPosts()
         {
             return blogcontext.Posts.Count();
-        }
-
-        public bool SaveChanges()
-        {
-            var saved = blogcontext.SaveChanges();
-            return saved >= 0 ? true : false;
         }
 
         public bool CreatePost(Post post)
         {
             blogcontext.Add(post);
             return SaveChanges();
+        }
+
+        public bool Exists(int id)
+        {
+            return blogcontext.Posts.FirstOrDefault(x => x.Id == id) != null ? true : false;
+        }
+
+        public ICollection<Post> GetAllPostsForBlog()
+        {
+            var posts = blogcontext.Posts.Include(p => p.User).ToList();
+            return posts;
+        }
+
+        public Post GetPostById(int id)
+        {
+            var post = blogcontext.Posts
+                               .Include(p => p.User)
+                               .Include(p => p.Comments)
+                                   .ThenInclude(c => c.User)
+                               .FirstOrDefault(x => x.Id == id);
+            return post;
+        }
+
+        public Post GetPostDetails(int id)
+        {
+            return blogcontext.Posts.FirstOrDefault(x => x.Id == id);
+        }
+
+        public Post PostRequestToPost(PostDtoCreateRequest postDtoCreateRequest,int userId )
+        {
+
+            return new Post
+            {
+                Title = postDtoCreateRequest.Title,
+                Content = postDtoCreateRequest.Content,
+                Date = postDtoCreateRequest.Date,
+                UserId = userId
+            };
+        }
+
+        public bool SaveChanges()
+        {
+            return blogcontext.SaveChanges() >=0 ? true : false;
         }
     }
 }

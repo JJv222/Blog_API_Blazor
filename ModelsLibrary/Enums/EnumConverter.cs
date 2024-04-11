@@ -22,5 +22,19 @@ namespace ModelsLibrary.Enums
                     return "None";
             }
         }
+        public static Role StringToEnum(string role)
+        {
+            switch (role)
+            {
+                case "Admin":
+                    return Role.Admin;
+                case "User":
+                    return Role.User;
+                case "Moderator":
+                    return Role.Moderator;
+                default:
+                    return Role.None;
+            }
+        }   
     }
 }

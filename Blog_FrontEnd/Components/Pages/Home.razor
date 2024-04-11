@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using ModelsLibrary.Dto
 @rendermode InteractiveServer
 <PageTitle>Home</PageTitle>
 
@@ -7,22 +6,3 @@
 <div>
     Welcom to my Super Blog App, I made it using Blazor server and ASP .NET core API with SQLite database. Enjoyee !!
 </div>
-
-
-@code {
-    public UserDto user;
-    public HttpClient httpClient = new HttpClient();
-
-    public async Task Fetch()
-    {
-        try
-        {
-            user = await httpClient.GetFromJsonAsync<UserDto>("https://localhost:44321/User/api/GetUser=1");
-            Console.WriteLine("Fetch executed");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error fetching user data: {ex.Message}");
-        }
-    }
-}

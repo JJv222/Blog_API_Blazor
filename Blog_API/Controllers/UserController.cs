@@ -3,11 +3,11 @@ using Blog_API.Helper;
 using Blog_API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLibrary;
-using ModelsLibrary.Dto;
+using ModelsLibrary.UserDto;
 
 namespace Blog_API.Controllers
 {
-    [Route("/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
@@ -19,57 +19,14 @@ namespace Blog_API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("api/GetAllUsers")]
-        [ProducesResponseType(200,Type = typeof(IEnumerable<UserDto>))]
-        public IActionResult GetAllUsers()
-        {
-            var users = mapper.Map<List<UserDto>>( userRepository.GetAllUsers());
-            foreach (var user in users)
-            {
-                user.Password = null;
-            }
-            if(!ModelState.IsValid) 
-                return BadRequest(ModelState);
-            else return Ok(users);
-        
-        }
-
-        [HttpGet("api/GetUserById={userid}")]
-        [ProducesResponseType(200, Type = typeof(UserDto))]
-        public IActionResult GetUser(int userid)
-        {
-            if (userRepository.Exists(userid))  
-                NotFound(ModelState);
-
-            var user = mapper.Map<UserDto>( userRepository.GetUserById(userid));
-            user.Password = null;
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            else return Ok(user);
-        }
-
-
-        [HttpGet("api/GetUserByName={username}")]
-        [ProducesResponseType(200, Type = typeof(UserDto))]
-        public IActionResult GetUser(string username)
-        {
-            if (userRepository.Exists(username))
-                NotFound(ModelState);
-
-            var user = mapper.Map<UserDto>(userRepository.GetUserByName(username));
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            else return Ok(user);
-        }
-
-        [HttpGet("api/GetUserAuth={username}")]
-        [ProducesResponseType(200, Type = typeof(UserDto))]
+        [HttpGet("GetAuth={username}")]
+        [ProducesResponseType(200, Type = typeof(UserDtoAuth))]
         public IActionResult GetUserAuth(string username)
         {
             if (userRepository.Exists(username))
                 NotFound(ModelState);
 
-            var user = mapper.Map<UserDto>(userRepository.GetUserByName(username));
+            var user = mapper.Map<UserDtoAuth>(userRepository.GetUserByName(username));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

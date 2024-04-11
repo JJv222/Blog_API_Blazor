@@ -15,25 +15,32 @@ namespace Blog_API.Repository
 
         public bool Exists(int id)
         {
-            return (blogContext.Users.FirstOrDefault(x => x.Id == id) is not null) ? true: false;
+            return blogContext.Users.FirstOrDefault(x=> x.Id == id) != null? true: false;
         }
+
         public bool Exists(string username)
         {
-            return (blogContext.Users.FirstOrDefault(x => x.Username == username) is not null) ? true : false;
-        }
-        public User GetUserById(int id)
-        {
-           return blogContext.Users.Where(p => p.Id == id).FirstOrDefault();
-        }
-        public User GetUserByName(string username)
-        {
-            return blogContext.Users.Where(p => p.Username == username).FirstOrDefault();
+            return blogContext.Users.FirstOrDefault(x => x.Username == username) != null ? true : false;
         }
 
         public ICollection<User> GetAllUsers()
         {
-            return blogContext.Users.OrderBy(x => x.Id).ToList();
+            return blogContext.Users.ToList();
         }
 
+        public User GetUserById(int id)
+        {
+            return blogContext.Users.FirstOrDefault(x => x.Id == id);
+        }
+
+        public User GetUserByName(string username)
+        {
+            return blogContext.Users.FirstOrDefault(x => x.Username == username);
+        }
+
+        public int GetUserIdByName(string username)
+        {
+            return blogContext.Users.FirstOrDefault(x=> x.Username == username).Id;
+        }
     }
 }

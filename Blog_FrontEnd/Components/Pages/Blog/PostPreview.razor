@@ -1,4 +1,5 @@
-﻿@using ModelsLibrary.Dto
+﻿@using ModelsLibrary.PostDto
+
 
 <div class="col-md-3 border rounded alert-primary m-3 py-2 px-3">
     <h5 class="fw-bold text-md-center">@post.Title</h5>
@@ -15,7 +16,7 @@
 
 @code {
     [Parameter]
-    public PostDto post { get; set; }
+    public PostDtoBlogResponse post { get; set; }
 
     [Parameter] 
     public EventCallback<int> ReturnPostId { get; set; }

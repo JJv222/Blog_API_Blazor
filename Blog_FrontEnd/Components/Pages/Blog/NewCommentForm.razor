@@ -1,4 +1,6 @@
-﻿@using ModelsLibrary.Dto
+﻿@using ModelsLibrary.CommentDto
+@using ModelsLibrary.Enums
+@using ModelsLibrary.UserDto
 @inject NavigationManager NavigationManager
 
 @if (DisplayForm)
@@ -6,7 +8,7 @@
     <EditForm Model="@NewComment" OnValidSubmit="CheckNewComment">
         <div class="mb-3">
             <label>Content</label>
-            <InputText @bind-Value="NewComment.Content" class="form-control" placeholder="New Content.." />
+            <InputText @bind-Value="NewComment.Content" class="form-control" placeholder="New Comment.." />
         </div>
         <div class="mb-3 d-grid gap-2">
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -28,19 +30,22 @@ else
     private bool DisplayForm { get; set; }
 
     [CascadingParameter]
-    public PostDto post { get; set; }
+    public string ApiLink { get; set; }
 
     [CascadingParameter]
     public HttpClient httpClient { get; set; }
 
     [SupplyParameterFromForm]
-    private CommentDto NewComment { get; set; } = new CommentDto();
+    private CommentDtoPostResponse NewComment { get; set; } = new CommentDtoPostResponse();
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     [Parameter]
     public EventCallback<bool> AddedComment { get; set; }
+
+    [Parameter]
+    public int PostId { get; set;}
 
     private string? ErrorMessage { get; set; }
 
@@ -50,7 +55,7 @@ else
     private void CancelForm()
     {
         DisplayForm = false;
-        NewComment = new CommentDto();
+        NewComment = new CommentDtoPostResponse();
     }
 
     private async Task CheckNewComment()
@@ -60,11 +65,16 @@ else
         }
 
         var authenticationState = await authenticationStateTask;
-        string Username = authenticationState.User.Identity.Name;
-
+        NewComment.User = new UserDto()
+            {
+                Username = authenticationState.User.Identity.Name,
+                Role = EnumConverter.StringToEnum(authenticationState.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value),
+                Email = authenticationState.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
+            };
         NewComment.Date = DateTime.Now;
+        NewComment.PostId = PostId;
 
-        var response = await httpClient.PostAsJsonAsync($"https://localhost:44321/Comment/api/CreateComment/PostId={post.Id}&Username={Username}", NewComment);
+        var response = await httpClient.PostAsJsonAsync(ApiLink + "Comment/Create", NewComment);
 
 
 

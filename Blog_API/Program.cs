@@ -2,6 +2,7 @@ using Blog_API.Data;
 using Blog_API.Interfaces;
 using Blog_API.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +16,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<BlogContext>(options => 
-	options.UseSqlite("Data Source=blogging.db")
+builder.Services.AddDbContext<BlogContext>(options => {
+	options.UseSqlite("Data Source=blogging.db");
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+}
 );
 
 var app = builder.Build();

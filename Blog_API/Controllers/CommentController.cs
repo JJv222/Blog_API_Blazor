@@ -2,12 +2,12 @@
 using Blog_API.Interfaces;
 using Blog_API.Repository;
 using Microsoft.AspNetCore.Mvc;
-using ModelsLibrary.Dto;
 using ModelsLibrary;
+using ModelsLibrary.CommentDto;
 
 namespace Blog_API.Controllers
 {
-    [Route("/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CommentController : Controller
     {
@@ -21,56 +21,21 @@ namespace Blog_API.Controllers
             this.userRepository = userRepository;
         }
 
-        [HttpGet("api/CountCommentsForPost={PostId}")]
-        [ProducesResponseType(200, Type = typeof(int))]
-        public IActionResult CountCommentsForPost(int PostId)
-        {
-            var count = commentRepository.GetCommentCount(PostId);
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            else return Ok(count);
-
-        }
-
-        [HttpGet("api/GetCommentsFromPost={postId}")]
-        [ProducesResponseType(200, Type = typeof(CommentDto))]
-        public IActionResult GetComments(int postId)
-        {
-            var comments = mapper.Map<List<CommentDto>>(commentRepository.GetCommentsByPost(postId));
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            else return Ok(comments);
-        }
-
-        [HttpGet("api/GetCommentsAll")]
-        [ProducesResponseType(200, Type = typeof(CommentDto))]
-        public IActionResult GetCommentsAll()
-        {
-            var comments = mapper.Map<List<CommentDto>>(commentRepository.GetCommentsAll());
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            else return Ok(comments);
-        }
-
-        [HttpPost("api/CreateComment/PostId={PostId}&Username={Username}")]
+        [HttpPost("Create")]
         [ProducesResponseType(201)]
-        public IActionResult CreateComment([FromBody] CommentDto comment, string Username,int PostId)
+        [ProducesResponseType(400)]
+        public IActionResult CreateComment([FromBody] CommentDtoCreate comment)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            if (!userRepository.Exists(comment.User.Username))
+                return NotFound();
 
-            var Comment = mapper.Map<Comment>(comment);
-            var User1 = userRepository.GetUserByName(Username); 
-            Comment.UserId = User1.Id;
-            Comment.User = User1;
-            Comment.PostId = PostId;
+            var NewComment = commentRepository.CommentCreateToComment(comment,userRepository.GetUserIdByName(comment.User.Username));
 
-            if(!commentRepository.CreateComment(Comment))
-                 return StatusCode(500,ModelState);
-
+            if (!commentRepository.CreateComment(NewComment))
+                return BadRequest();
             return Ok();
-
         }
     }
 }

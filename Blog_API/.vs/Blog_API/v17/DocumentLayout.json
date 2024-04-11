@@ -3,21 +3,14 @@
   "WorkspaceRootPath": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_api\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|solutionrelative:controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\blog\\newcommentform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\blog\\post.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\blog\\blog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_api\\repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|solutionrelative:repository\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_api\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BFBF0EF-0AAD-46DB-9D34-A92A25289E78}|Blog_API.csproj|solutionrelative:controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,7 +20,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 249,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,67 +32,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PostRepository.cs",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Repository\\PostRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\PostRepository.cs",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Repository\\PostRepository.cs",
-              "RelativeToolTip": "Repository\\PostRepository.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAASwCYAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-08T13:00:14.348Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PostController.cs",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Controllers\\PostController.cs",
-              "RelativeToolTip": "Controllers\\PostController.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAowCYAAABIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-08T12:59:15.056Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "NewCommentForm.razor",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
-              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
-              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
-              "ViewState": "AQIAADQAAAAAAAAAAAAAAD0AAABAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-08T12:19:52.334Z",
+              "Title": "CommentController.cs",
+              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Controllers\\CommentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CommentController.cs",
+              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\Controllers\\CommentController.cs",
+              "RelativeToolTip": "Controllers\\CommentController.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAQwCEAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T18:29:30.653Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Blog.razor",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\Blog.razor",
-              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\Blog.razor",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\Blog.razor",
-              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\Blog.razor",
-              "ViewState": "AQIAACQAAAAAAAAAAAAAACwAAAA2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-08T11:42:03.735Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Post.razor",
               "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
               "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
               "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
               "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFMAAAAAAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAC0AAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-08T11:09:23.726Z",
+              "WhenOpened": "2024-04-11T17:41:31.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NewCommentForm.razor",
+              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
+              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
+              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
+              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\NewCommentForm.razor",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAEwAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-11T17:37:05.67Z",
               "EditorCaption": ""
             }
           ]

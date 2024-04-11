@@ -10,8 +10,8 @@ namespace ModelsLibrary
 	public class Comment
 	{
 		public int Id { get; set; }
-		public DateTime Date { get; set; } = DateTime.Now;
-		[StringLength(500)]
+		public DateTime Date { get; set; }
+        [StringLength(500)]
 		public string Content { get; set; }
 
 		public int PostId { get; set; }

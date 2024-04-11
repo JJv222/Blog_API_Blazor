@@ -1,6 +1,6 @@
 ﻿<!-- PostPage.razor -->
 @using System.Collections.Generic
-@using ModelsLibrary.Dto
+@using ModelsLibrary.PostDto
 
 <div class="container mt-5">
     @if (post != null)
@@ -19,7 +19,7 @@
                                 <p class="card-text" style="font-style:italic"><small class="text-muted">Posted by: @post.User.Username</small></p>
                             </div>
                             <div class="col">
-                                <p class="card-text" style="text-align:right; font-style:italic"><small class="text-muted">Date: @post.Date.ToShortDateString()</small></p>
+                                <p class="card-text" style="text-align:right; font-style:italic"><small class="text-muted">Date: @post.Date</small></p>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
 
                 <h3 class="mb-3">Comments</h3>
                 <AuthorizeView>
-                    <NewCommentForm AddedComment="RefreshPost"></NewCommentForm>
+                    <NewCommentForm AddedComment="RefreshPost" PostId="post.Id"></NewCommentForm>
                 </AuthorizeView>
                 @if(post.Comments.Count > 0){
                     @foreach (var comment in post.Comments)
@@ -43,7 +43,7 @@
                                      </div>
                                     <div class="col">
                                         <p class="card-text" style="text-align:right; font-style:italic">
-                                            <small class="text-muted">Date: @post.Date.ToShortDateString()</small>
+                                            <small class="text-muted">Date: @comment.Date</small>
                                         </p>
                                     </div>
                                 </div>
@@ -68,16 +68,19 @@
 
 @code {
     [CascadingParameter]
+    public string ApiLink { get; set; }
+
+    [CascadingParameter]
     public HttpClient httpClient { get; set; }
 
     [CascadingParameter]
-    public PostDto post { get; set; }
+    public PostDtoPostResponse post { get; set; }
 
     [Parameter]
     public EventCallback ReturnToPosts { get; set; }
 
     private async Task RefreshPost()
     {
-        post = await httpClient.GetFromJsonAsync<PostDto>($"https://localhost:44321/Post/api/GetPost={post.Id}");
+        post = await httpClient.GetFromJsonAsync<PostDtoPostResponse>(ApiLink + "Post/GetDetails/"+post.Id.ToString());
     }
 }

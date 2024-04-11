@@ -1,4 +1,5 @@
 ﻿using ModelsLibrary;
+using ModelsLibrary.CommentDto;
 
 namespace Blog_API.Interfaces
 {
@@ -11,5 +12,6 @@ namespace Blog_API.Interfaces
         ICollection<Comment> GetCommentsAll();
         bool SaveChanges();
         bool CreateComment(Comment comment);
+        Comment CommentCreateToComment(CommentDtoCreate commentCreate,int userId);
     }
 }

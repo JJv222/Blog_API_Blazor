@@ -1,20 +1,21 @@
 ﻿@page "/Blog"
 
 @using Microsoft.AspNetCore.Authorization
-@using ModelsLibrary.Dto
+@using ModelsLibrary.PostDto
 @rendermode InteractiveServer
 
 @if(posts is not null)
 {
+    <CascadingValue Value="@ApiLink">
    <CascadingValue Value="@httpClient">
    @if(DisplayPosts){
        <AuthorizeView Roles="Admin,User">
             <NewPostForm></NewPostForm>
        </AuthorizeView>
         <div class="row m-2">
-        @foreach(var post in posts)
+        @foreach(var _post in posts)
         {
-            <PostPreview post="@post" ReturnPostId="SetId"></PostPreview>
+            <PostPreview post="@_post" ReturnPostId="SetId"></PostPreview>
         }
         </div>
    }
@@ -25,36 +26,40 @@
         </CascadingValue>
    }
     </CascadingValue>
+    </CascadingValue>
 }
 
 
 @code {
     [CascadingParameter]
+    public string ApiLink { get; set; }
+
+    [CascadingParameter]
     public HttpClient httpClient { get; set; }
 
     [CascadingParameter]
-    public PostDto post { get; set; }
+    public PostDtoPostResponse post { get; set; }
 
-    [Parameter]
     public int PostId { get; set; }
 
     private bool DisplayPosts;
 
-    private List<PostDto> posts = new List<PostDto>();
+    private List<PostDtoBlogResponse> posts = new List<PostDtoBlogResponse>();
 
     protected override async Task OnInitializedAsync()
     {
+        ApiLink = "https://localhost:44321/api/";
         httpClient = new HttpClient();
         PostId = 0;
         DisplayPosts = true;
-        posts = await httpClient.GetFromJsonAsync<List<PostDto>>("https://localhost:44321/Post/api/GetAllPosts");
+        posts = await httpClient.GetFromJsonAsync<List<PostDtoBlogResponse>>(ApiLink + "Post/GetBlog");
     }
 
-    private void SetId(int iD)
+    private async Task SetId(int iD)
     {
         PostId = iD;
-        post=posts.Find(p=>p.Id==PostId);
         DisplayPosts = false;
+        post = await httpClient.GetFromJsonAsync<PostDtoPostResponse>(ApiLink + "Post/GetDetails/" + PostId.ToString());
     }
 
     private void BackToPosts()

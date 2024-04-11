@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
+using Blog_API.Helper;
 using Blog_API.Interfaces;
 using Blog_API.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLibrary;
-using ModelsLibrary.Dto;
+using ModelsLibrary.PostDto;
+using ModelsLibrary.UserDto;
 
 namespace Blog_API.Controllers
 {
-    [Route("/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PostController : Controller
     {
@@ -15,68 +17,56 @@ namespace Blog_API.Controllers
         private readonly ICommentRepository commentRepository;
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
+       // private MyMapper myMapper;
         public PostController(IPostRepository postRepository, IMapper mapper, ICommentRepository comentRepository, IUserRepository userRepository) { 
             this.postRepository = postRepository;
             this.mapper = mapper;
             this.commentRepository = comentRepository;
             this.userRepository = userRepository;
         }
-        [HttpGet("api/GetPostsNumber")]
-        [ProducesResponseType(200, Type = typeof(int))]
-        public IActionResult GetPostsNumber()
+        [HttpGet("GetBlog")]
+        [ProducesResponseType(200, Type = typeof(List<PostDtoBlogResponse>))]
+        [ProducesResponseType(404)]
+        public IActionResult GetBlogPosts()
         {
-            var ammount = postRepository.CountPosts();
-            
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState);
-            return Ok(ammount);
-        }
-
-        [HttpGet("api/GetAllPosts")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<PostDto>))]
-        public IActionResult GetAllPostsBasic()
-        {
-            var posts = mapper.Map<List<PostDto>>(postRepository.GetAllPosts());
+            var posts = mapper.Map<List<PostDtoBlogResponse>>(postRepository.GetAllPostsForBlog());
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             else return Ok(posts);
         }
 
-        [HttpGet("api/GetPost={postId}")]
-        [ProducesResponseType(200, Type = typeof(PostDto))]
-        public IActionResult GetPost(int postId)
+        [HttpGet("GetDetails/{id}")]
+        [ProducesResponseType(200,Type=typeof(PostDtoPostResponse))]
+        [ProducesResponseType(404)]
+        public IActionResult GetPostDetails(int id)
         {
-            if(postRepository.Exists(postId)) 
-                  NotFound(ModelState);
+            var post = mapper.Map<PostDtoPostResponse>(postRepository.GetPostById(id));
 
-            var post = mapper.Map<PostDto>(postRepository.GetPostById(postId));
-
-            if(!ModelState.IsValid) 
-                return BadRequest(ModelState); 
-            else return Ok(post);
+            if (post == null)
+                return NotFound();
+            
+            return Ok(post);
         }
 
-
-        ///Post Method
-        [HttpPost("api/CreatePost={UserName}")]
-        [ProducesResponseType(201)]
-        public IActionResult CreatePost([FromBody] PostDto post,string UserName)
+        [HttpPost("Create")]
+        [ProducesResponseType(201, Type = typeof(PostDtoCreateRequest))]
+        [ProducesResponseType(400)]
+        public IActionResult CreatePost([FromBody] PostDtoCreateRequest postDtoCreateRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            if (!userRepository.Exists(postDtoCreateRequest.User.Username))
+                return NotFound();
 
-            var post1 = mapper.Map<Post>(post);
-            var User1 = userRepository.GetUserByName(UserName);
+            var userId = userRepository.GetUserIdByName(postDtoCreateRequest.User.Username);
+            var post = postRepository.PostRequestToPost(postDtoCreateRequest,userId);
 
-            post1.UserId = User1.Id;
-
-            if (!postRepository.CreatePost(post1))
+            if (!postRepository.CreatePost(post))
             {
-                return StatusCode(500,ModelState);
+                return StatusCode(500, ModelState);
             }
-            
             return Ok();
-            
         }
+
     }
 }
