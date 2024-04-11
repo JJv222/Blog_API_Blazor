@@ -6,7 +6,7 @@ using ModelsLibrary.PostDto;
 
 namespace Blog_API.Repository
 {
-    public class PostRepository : IPostRepository
+    internal class PostRepository : IPostRepository
     {
         private readonly BlogContext blogcontext;
 

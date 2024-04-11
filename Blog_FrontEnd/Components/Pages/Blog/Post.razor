@@ -1,6 +1,9 @@
 ﻿<!-- PostPage.razor -->
 @using System.Collections.Generic
+@using ModelsLibrary.CommentDto
+@using ModelsLibrary.Enums
 @using ModelsLibrary.PostDto
+@using ModelsLibrary.UserDto
 
 <div class="container mt-5">
     @if (post != null)
@@ -17,6 +20,7 @@
                         <div class="row">
                             <div class="col">
                                 <p class="card-text" style="font-style:italic"><small class="text-muted">Posted by: @post.User.Username</small></p>
+                                <p class="card-text" style="font-style:italic"><small class="text-muted">Email: @(post.User.Email ?? "No email")</small></p>
                             </div>
                             <div class="col">
                                 <p class="card-text" style="text-align:right; font-style:italic"><small class="text-muted">Date: @post.Date</small></p>
@@ -27,7 +31,9 @@
 
                 <h3 class="mb-3">Comments</h3>
                 <AuthorizeView>
+                    <CascadingValue Value="CurrentUser">
                     <NewCommentForm AddedComment="RefreshPost" PostId="post.Id"></NewCommentForm>
+                    </CascadingValue>
                 </AuthorizeView>
                 @if(post.Comments.Count > 0){
                     @foreach (var comment in post.Comments)
@@ -40,6 +46,9 @@
                                         <p class="card-text" style="font-style:italic">
                                             <small class="text-muted">Commented by: @(comment.User?.Username ?? "Unknown User")</small>
                                         </p>
+                                        <p class="card-text"  style="font-style:italic">
+                                            <small class="text-muted">Email: @(comment.User?.Email ?? "No email")</small>
+                                        </p>
                                      </div>
                                     <div class="col">
                                         <p class="card-text" style="text-align:right; font-style:italic">
@@ -47,6 +56,20 @@
                                         </p>
                                     </div>
                                 </div>
+                                <AuthorizeView>
+
+                                    @if (comment.User.Username == CurrentUser.Username || EnumConverter.IsAdmin(CurrentUser.Role) || EnumConverter.IsModerator(CurrentUser.Role))
+                                    {
+                                        if (!IsEdit)
+                                        {
+                                            <button class="active btn btn-sm btn bg-warning" @onclick="(()=>EditComment(comment))">Edit</button>
+                                        }
+                                        else if(comment.Id == EditetComment.Id)
+                                        {
+                                            <EditCommentForm isEdit="IsEdit" EditetComment="EditetComment" EditetCom="RefreshPost"/>
+                                        }
+                                    }
+                                </AuthorizeView>
                             </div>
                         </div>
                     }
@@ -67,6 +90,14 @@
 </div>
 
 @code {
+    public bool IsEdit { get; set; }
+    public CommentDtoPostResponse EditetComment { get; set; }
+
+
+
+    [CascadingParameter]
+    public UserDto CurrentUser { get; set; }
+
     [CascadingParameter]
     public string ApiLink { get; set; }
 
@@ -76,11 +107,35 @@
     [CascadingParameter]
     public PostDtoPostResponse post { get; set; }
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
     [Parameter]
     public EventCallback ReturnToPosts { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsEdit = false;
+        await base.OnInitializedAsync();
+        var authenticationState = await authenticationStateTask;
+        CurrentUser =new UserDto()
+            {
+                Username = authenticationState.User.Identity.Name,
+                Role = EnumConverter.StringToEnum(authenticationState.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value),
+                Email = authenticationState.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
+            };
+    }
+    private void EditComment(CommentDtoPostResponse EditCommment)
+    {
+        EditetComment = EditCommment;
+        IsEdit = true;
+    }
 
     private async Task RefreshPost()
     {
         post = await httpClient.GetFromJsonAsync<PostDtoPostResponse>(ApiLink + "Post/GetDetails/"+post.Id.ToString());
+        EditetComment = new CommentDtoPostResponse();
+        IsEdit = false;
     }
 }

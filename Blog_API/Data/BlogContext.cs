@@ -3,7 +3,7 @@ using ModelsLibrary;
 
 namespace Blog_API.Data
 {
-	public class BlogContext : DbContext
+    internal class BlogContext : DbContext
 	{
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<User> Users { get; set; }

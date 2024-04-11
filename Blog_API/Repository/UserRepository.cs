@@ -5,7 +5,7 @@ using SQLitePCL;
 
 namespace Blog_API.Repository
 {
-    public class UserRepository : IUserRepository
+    internal class UserRepository : IUserRepository
     {
         private readonly BlogContext blogContext;
         public UserRepository(BlogContext context)

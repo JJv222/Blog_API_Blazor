@@ -14,6 +14,7 @@ namespace Blog_API.Helper
 
             CreateMap<Comment, CommentDtoPostResponse>();
             CreateMap<CommentDtoCreate, Comment>();
+            CreateMap<CommentDtoPutRequest, Comment>();
 
             CreateMap<User, UserDto>();
             CreateMap<User, UserDtoAuth>();

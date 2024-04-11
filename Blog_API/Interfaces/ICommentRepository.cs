@@ -13,5 +13,7 @@ namespace Blog_API.Interfaces
         bool SaveChanges();
         bool CreateComment(Comment comment);
         Comment CommentCreateToComment(CommentDtoCreate commentCreate,int userId);
+        bool UpdateComment(Comment comment);
+        Comment CommenRequestToComment(CommentDtoPutRequest commentRequest, int userId);
     }
 }

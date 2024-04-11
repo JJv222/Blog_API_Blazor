@@ -7,6 +7,7 @@
     <div class="small text-muted">
         <p>Created by: <span class="font-italic">@post.User.Username</span></p>
         <p>Date: @post.Date</p>
+        <i><p>Comments: @PostCount</p></i>
         <div class="d-flex justify-content-center">
             <button class="active btn btn-sm btn-outline-secondary" @onclick="() => SetId(post.Id)">Click to see details</button>
         </div>
@@ -15,14 +16,27 @@
 
 
 @code {
+    [CascadingParameter]
+    public string ApiLink { get; set; }
+
+    [CascadingParameter]
+    public HttpClient httpClient { get; set; }
+
     [Parameter]
     public PostDtoBlogResponse post { get; set; }
 
     [Parameter] 
     public EventCallback<int> ReturnPostId { get; set; }
 
+    private int PostCount { get; set; }
+
     private void SetId(int id)
     {
         ReturnPostId.InvokeAsync(id);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await  base.OnInitializedAsync();
+        PostCount = await httpClient.GetFromJsonAsync<int>(ApiLink + "Comment/CommentsCount/" + post.Id);
     }
 }

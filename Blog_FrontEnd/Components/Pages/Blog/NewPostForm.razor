@@ -62,13 +62,13 @@ else
         }
 
         var authenticationState = await authenticationStateTask;
-        NewPost.User = new UserDto()
-                {
-                    Username = authenticationState.User.Identity.Name,
-                    Role = EnumConverter.StringToEnum(authenticationState.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value),
-                    Email = authenticationState.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
-                };
-
+        var CurrentUser = new UserDto()
+            {
+                Username = authenticationState.User.Identity.Name,
+                Role = EnumConverter.StringToEnum(authenticationState.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value),
+                Email = authenticationState.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
+            };
+        NewPost.User = CurrentUser;
         NewPost.Date = DateTime.Now;
         //Post method
         var response = await httpClient.PostAsJsonAsync(ApiLink + "Post/Create",NewPost ); 

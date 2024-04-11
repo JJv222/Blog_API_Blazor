@@ -36,7 +36,7 @@ else
     public HttpClient httpClient { get; set; }
 
     [SupplyParameterFromForm]
-    private CommentDtoPostResponse NewComment { get; set; } = new CommentDtoPostResponse();
+    public CommentDtoPostResponse NewComment { get; set; } = new CommentDtoPostResponse();
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -49,6 +49,8 @@ else
 
     private string? ErrorMessage { get; set; }
 
+    [CascadingParameter]
+    public UserDto CurrentUser { get; set; }
 
 
     //Methods
@@ -64,13 +66,7 @@ else
             return;
         }
 
-        var authenticationState = await authenticationStateTask;
-        NewComment.User = new UserDto()
-            {
-                Username = authenticationState.User.Identity.Name,
-                Role = EnumConverter.StringToEnum(authenticationState.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value),
-                Email = authenticationState.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
-            };
+        NewComment.User = CurrentUser;
         NewComment.Date = DateTime.Now;
         NewComment.PostId = PostId;
 

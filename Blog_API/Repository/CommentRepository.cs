@@ -5,7 +5,7 @@ using ModelsLibrary.CommentDto;
 
 namespace Blog_API.Repository
 {
-    public class CommentRepository : ICommentRepository
+    internal class CommentRepository : ICommentRepository
     {
         private readonly BlogContext blogContext;
 
@@ -40,7 +40,7 @@ namespace Blog_API.Repository
         public bool SaveChanges()
         {
             var saved = blogContext.SaveChanges();
-            return saved >= 0 ? true : false;
+            return saved > 0 ? true : false;
         }
 
         public bool CreateComment(Comment comment)
@@ -59,6 +59,23 @@ namespace Blog_API.Repository
                 UserId = userId
             };
             
+        }
+
+        public bool UpdateComment(Comment comment)
+        {
+            blogContext.Update(comment);
+            return SaveChanges();
+        }
+
+        public Comment CommenRequestToComment(CommentDtoPutRequest commentRequest, int userId)
+        {
+            return new Comment
+            {
+                Date = commentRequest.Date,
+                Content = commentRequest.Content,
+                PostId = commentRequest.PostId,
+                UserId = userId
+            };
         }
     }
 }

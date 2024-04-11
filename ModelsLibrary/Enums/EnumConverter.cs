@@ -36,5 +36,7 @@ namespace ModelsLibrary.Enums
                     return Role.None;
             }
         }   
+        public static bool IsAdmin(Role role) { return role == StringToEnum("Admin"); }
+        public static bool IsModerator(Role role) { return role == StringToEnum("Moderator"); }
     }
 }
