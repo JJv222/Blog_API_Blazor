@@ -26,6 +26,20 @@
                                 <p class="card-text" style="text-align:right; font-style:italic"><small class="text-muted">Date: @post.Date</small></p>
                             </div>
                         </div>
+                        <AuthorizeView>
+
+                            @if (post.User.Username == CurrentUser.Username || EnumConverter.IsAdmin(CurrentUser.Role) || EnumConverter.IsModerator(CurrentUser.Role))
+                            {
+                                if (!IsEditPost)
+                                {
+                                    <button class="active btn btn-sm btn bg-warning" @onclick="(()=>EditPost(post))">Edit</button>
+                                }
+                                else if (post.Id == EditetPost.Id)
+                                {
+                                    <EditPostForm isEdit="IsEditPost" EditetPost="EditetPost" EditetCom="RefreshPost" />
+                                }
+                            }
+                        </AuthorizeView>
                     </div>
                 </div>
 
@@ -60,13 +74,13 @@
 
                                     @if (comment.User.Username == CurrentUser.Username || EnumConverter.IsAdmin(CurrentUser.Role) || EnumConverter.IsModerator(CurrentUser.Role))
                                     {
-                                        if (!IsEdit)
+                                        if (!IsEditComment)
                                         {
                                             <button class="active btn btn-sm btn bg-warning" @onclick="(()=>EditComment(comment))">Edit</button>
                                         }
                                         else if(comment.Id == EditetComment.Id)
                                         {
-                                            <EditCommentForm isEdit="IsEdit" EditetComment="EditetComment" EditetCom="RefreshPost"/>
+                                            <EditCommentForm isEdit="IsEditComment" EditetComment="EditetComment" EditetCom="RefreshPost" />
                                         }
                                     }
                                 </AuthorizeView>
@@ -90,9 +104,10 @@
 </div>
 
 @code {
-    public bool IsEdit { get; set; }
+    public bool IsEditComment { get; set; }
     public CommentDtoPostResponse EditetComment { get; set; }
-
+    public bool IsEditPost { get; set; }
+    public PostDtoPostResponse EditetPost { get; set; }
 
 
     [CascadingParameter]
@@ -113,11 +128,16 @@
     [Parameter]
     public EventCallback ReturnToPosts { get; set; }
 
+    [Parameter]
+    public EventCallback<int> PostHasBeenEdited { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        IsEdit = false;
+        IsEditComment = false;
+        IsEditPost = false;
+
         await base.OnInitializedAsync();
+
         var authenticationState = await authenticationStateTask;
         CurrentUser =new UserDto()
             {
@@ -129,13 +149,22 @@
     private void EditComment(CommentDtoPostResponse EditCommment)
     {
         EditetComment = EditCommment;
-        IsEdit = true;
+        IsEditComment = true;
+    }
+
+    private void EditPost(PostDtoPostResponse EditPost)
+    {
+        EditetPost = EditPost;
+        IsEditPost = true;
     }
 
     private async Task RefreshPost()
     {
+        if (IsEditPost) await PostHasBeenEdited.InvokeAsync(EditetPost.Id);
         post = await httpClient.GetFromJsonAsync<PostDtoPostResponse>(ApiLink + "Post/GetDetails/"+post.Id.ToString());
         EditetComment = new CommentDtoPostResponse();
-        IsEdit = false;
+        EditetPost = new PostDtoPostResponse();
+        IsEditComment = false;
+        IsEditPost = false;
     }
 }

@@ -17,8 +17,8 @@ namespace Blog_API.Controllers
         private readonly ICommentRepository commentRepository;
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
-       // private MyMapper myMapper;
-        public PostController(IPostRepository postRepository, IMapper mapper, ICommentRepository comentRepository, IUserRepository userRepository) { 
+        // private MyMapper myMapper;
+        public PostController(IPostRepository postRepository, IMapper mapper, ICommentRepository comentRepository, IUserRepository userRepository) {
             this.postRepository = postRepository;
             this.mapper = mapper;
             this.commentRepository = comentRepository;
@@ -36,7 +36,7 @@ namespace Blog_API.Controllers
         }
 
         [HttpGet("GetDetails/{id}")]
-        [ProducesResponseType(200,Type=typeof(PostDtoPostResponse))]
+        [ProducesResponseType(200, Type = typeof(PostDtoPostResponse))]
         [ProducesResponseType(404)]
         public IActionResult GetPostDetails(int id)
         {
@@ -44,7 +44,20 @@ namespace Blog_API.Controllers
 
             if (post == null)
                 return NotFound();
-            
+
+            return Ok(post);
+        }
+
+        [HttpGet("GetPostWhenUpdated/{id}")]
+        [ProducesResponseType(200, Type = typeof(PostDtoBlogResponse))]
+        [ProducesResponseType(404)]
+        public IActionResult GetPost(int id)
+        {
+            var post = mapper.Map<PostDtoBlogResponse>(postRepository.GetPostById(id));
+
+            if (post == null)
+                return NotFound();
+
             return Ok(post);
         }
 
@@ -59,7 +72,7 @@ namespace Blog_API.Controllers
                 return NotFound();
 
             var userId = userRepository.GetUserIdByName(postDtoCreateRequest.User.Username);
-            var post = postRepository.PostRequestToPost(postDtoCreateRequest,userId);
+            var post = postRepository.PostRequestToPost(postDtoCreateRequest, userId);
 
             if (!postRepository.CreatePost(post))
             {
@@ -68,5 +81,29 @@ namespace Blog_API.Controllers
             return Ok();
         }
 
+        [HttpPut("Update")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdatePost([FromBody] PostDtoPutRequest post)
+        {
+            var existingPost = postRepository.GetPostForUpdate(post.Id);
+            var postUsername = postRepository.GetUserNameFromPost(post.Id);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            if (existingPost == null)
+                return NotFound();
+            if (!userRepository.Exists(post.UsernName) || postUsername != post.UsernName)
+                return NotFound();
+
+            existingPost.Title = post.Title;
+            existingPost.Content = post.Content;
+            existingPost.Date = post.Date;
+            if (!postRepository.UpdatePost(existingPost))
+            {
+                return BadRequest();
+            }
+
+            return NoContent();
+        }
     }
 }

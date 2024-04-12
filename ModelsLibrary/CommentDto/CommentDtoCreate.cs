@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ModelsLibrary.CommentDto
 {
-    public class CommentDtoCreate
+    public record CommentDtoCreate
     {
         public DateTime Date { get; set; } = DateTime.Now;
         [StringLength(500)]

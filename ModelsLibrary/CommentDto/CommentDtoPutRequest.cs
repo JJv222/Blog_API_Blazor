@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ModelsLibrary.CommentDto
 {
-    public class CommentDtoPutRequest
+    public record CommentDtoPutRequest
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

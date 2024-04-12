@@ -67,5 +67,22 @@ namespace Blog_API.Repository
         {
             return blogcontext.SaveChanges() >=0 ? true : false;
         }
+
+        public bool UpdatePost(Post post)
+        {
+            blogcontext.Update(post);
+            return SaveChanges();
+        }
+
+        public Post GetPostForUpdate(int id)
+        {
+           return blogcontext.Posts.FirstOrDefault(x => x.Id == id);
+        }
+
+        public string GetUserNameFromPost(int id)
+        {
+            var post = blogcontext.Posts.Include(p=>p.User).FirstOrDefault(x => x.Id == id);
+            return post.User.Username;
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ModelsLibrary.PostDto
 {
-    public class PostDtoCreateRequest
+    public record class PostDtoCreateRequest
     {
         [StringLength(60)]
         public string Title { get; set; }

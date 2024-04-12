@@ -12,5 +12,8 @@ namespace Blog_API.Interfaces
         bool SaveChanges();
         bool CreatePost(Post post);
         public Post PostRequestToPost(PostDtoCreateRequest postDtoCreateRequest, int userId);
+        public bool UpdatePost(Post post);
+        Post GetPostForUpdate(int id);
+        string GetUserNameFromPost(int id);
     }
 }
