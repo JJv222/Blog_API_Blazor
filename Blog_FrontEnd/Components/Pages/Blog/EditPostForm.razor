@@ -1,5 +1,6 @@
 ﻿@using ModelsLibrary.CommentDto
 @using ModelsLibrary.PostDto
+@using ModelsLibrary.UserDto
 @if (isEdit)
 {
     <EditForm Model="@EditetPost" OnValidSubmit="UpdatePost">
@@ -23,6 +24,9 @@
     <button class="btn btn-warning mb-3" @onclick="CancelForm">Cancel Adding New Post</button>
 }
 @code {
+    [Parameter]
+    public UserDto CurrentUser { get; set; }
+
     [CascadingParameter]
     public string ApiLink { get; set; }
 
@@ -62,7 +66,7 @@
                 Content = EditetPost.Content,
                 Title = EditetPost.Title,
                 Date = DateTime.Now,
-                UsernName = EditetPost.User.Username
+                UsernName = CurrentUser.Username
             };
 
             var response = await httpClient.PutAsJsonAsync<PostDtoPutRequest>(ApiLink + "Post/Update", SendData);

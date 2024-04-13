@@ -87,14 +87,15 @@ namespace Blog_API.Controllers
         public IActionResult UpdatePost([FromBody] PostDtoPutRequest post)
         {
             var existingPost = postRepository.GetPostForUpdate(post.Id);
-            var postUsername = postRepository.GetUserNameFromPost(post.Id);
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             if (existingPost == null)
                 return NotFound();
-            if (!userRepository.Exists(post.UsernName) || postUsername != post.UsernName)
-                return NotFound();
-
+            var Role = userRepository.GetUserRole(post.UsernName);
+            if (!(Role == "Moderator" || Role == "Admin"))
+            {
+                return BadRequest();
+            }
             existingPost.Title = post.Title;
             existingPost.Content = post.Content;
             existingPost.Date = post.Date;
@@ -109,11 +110,13 @@ namespace Blog_API.Controllers
         [HttpDelete("Delete/{id}/{Username}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteComment(int id,string Username)
+        public IActionResult DeletePost(int id,string Username)
         {
-            var PostUsername = postRepository.GetUserNameFromPost(id);
-            if (!userRepository.Exists(Username) || PostUsername != Username)
-                return NotFound();
+            var Role = userRepository.GetUserRole(Username);
+            if (!(Role == "Moderator" || Role == "Admin"))
+            {
+                return BadRequest();
+            }
             if (!postRepository.Exists(id))
                 return NotFound();
             

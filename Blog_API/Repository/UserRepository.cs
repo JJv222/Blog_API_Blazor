@@ -47,5 +47,19 @@ namespace Blog_API.Repository
         {
             return blogContext.Users.FirstOrDefault(x=> x.Username == username).Id;
         }
+
+        public string GetUserRole(string username)
+        {
+            var user = blogContext.Users.FirstOrDefault(x => x.Username == username);
+            if (user != null)
+            {
+                return ModelsLibrary.Enums.EnumConverter.EnumToString(user.Role);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 }

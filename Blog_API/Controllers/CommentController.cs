@@ -55,14 +55,17 @@ namespace Blog_API.Controllers
         public IActionResult UpdateComment(CommentDtoPutRequest comment)
         {
             var existingComment = commentRepository.GetCommentById(comment.Id);
-            existingComment.User = userRepository.GetUserByCommentId(comment.Id); 
-            var CommentUsername = commentRepository.GetUserNameFromComment(comment.Id);
+            existingComment.User = userRepository.GetUserByCommentId(comment.Id);
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (existingComment == null) 
+            if (existingComment == null)
                 return NotFound();
-            if(!userRepository.Exists(comment.UserName) || CommentUsername != existingComment.User.Username)
-                return NotFound();
+            var Role = userRepository.GetUserRole(comment.UserName);
+            if (!(Role == "Moderator" || Role == "Admin"))
+            {
+                if (!userRepository.Exists(comment.UserName) || comment.UserName != existingComment.User.Username)
+                    return NotFound();
+            } 
             if (!posrepository.Exists(comment.PostId)) 
                 return NotFound();
 
@@ -83,8 +86,14 @@ namespace Blog_API.Controllers
         public IActionResult DeleteComment(int id,string Username)
         {
             var CommentUsername = commentRepository.GetUserNameFromComment(id);
-            if (!userRepository.Exists(Username) || CommentUsername != Username)
-                return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var Role = userRepository.GetUserRole(Username);
+            if (!(Role == "Moderator" || Role == "Admin"))
+            {
+                if (!userRepository.Exists(Username) || CommentUsername != Username)
+                    return NotFound();
+            }
             if (!commentRepository.Exists(id))
                 return NotFound();
             if (!commentRepository.DeleteComment(id))

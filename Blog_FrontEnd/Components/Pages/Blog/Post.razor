@@ -26,20 +26,16 @@
                                 <p class="card-text" style="text-align:right; font-style:italic"><small class="text-muted">Date: @post.Date</small></p>
                             </div>
                         </div>
-                        <AuthorizeView>
-
-                            @if (post.User.Username == CurrentUser.Username || EnumConverter.IsAdmin(CurrentUser.Role) || EnumConverter.IsModerator(CurrentUser.Role))
-                            {
-                                if (!IsEditPost)
+                        <AuthorizeView Roles="Admin,Moderator">
+                                @if (!IsEditPost)
                                 {
                                     <button class="active btn btn-sm btn bg-warning" @onclick="(()=>EditPost(post))">Edit</button>
                                 }
                                 else if (post.Id == EditetPost.Id)
                                 {
-                                    <EditPostForm isEdit="IsEditPost" EditetPost="EditetPost" EditetCom="RefreshPost" />
+                                <EditPostForm isEdit="IsEditPost" EditetPost="EditetPost" EditetCom="RefreshPost" CurrentUser="CurrentUser" />
                                 }
                                 <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeletePost(post.Id))">Delete</button>
-                            }
                         </AuthorizeView>
                     </div>
                 </div>
@@ -69,11 +65,8 @@
                                         </p>
                                     </div>
                                 </div>
-                                <AuthorizeView>
-
-                                    @if (comment.User.Username == CurrentUser.Username || EnumConverter.IsAdmin(CurrentUser.Role) || EnumConverter.IsModerator(CurrentUser.Role))
-                                    {
-                                        if (!IsEditComment)
+                                <AuthorizeView> 
+                                        @if (!IsEditComment)
                                         {
                                             <button class="active btn btn-sm btn bg-warning" @onclick="(()=>EditComment(comment))">Edit</button>
                                         }
@@ -82,7 +75,7 @@
                                             <EditCommentForm isEdit="IsEditComment" EditetComment="EditetComment" EditetCom="RefreshPost" />
                                         }
                                         <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeleteComment(comment.Id))">Delete</button>
-                                    }
+                                    
                                 </AuthorizeView>
                             </div>
                         </div>
@@ -143,9 +136,7 @@
         var authenticationState = await authenticationStateTask;
         CurrentUser =new UserDto()
             {
-                Username = authenticationState.User.Identity.Name,
-                Role = EnumConverter.StringToEnum(authenticationState.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value),
-                Email = authenticationState.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
+                Username = authenticationState.User.Identity.Name
             };
     }
     private void EditComment(CommentDtoPostResponse EditCommment)

@@ -11,5 +11,6 @@ namespace Blog_API.Interfaces
         User GetUserByName(string username);
         User GetUserByCommentId(int commentId);
         int GetUserIdByName(string username);
+        string GetUserRole(string username);
     }
 }
