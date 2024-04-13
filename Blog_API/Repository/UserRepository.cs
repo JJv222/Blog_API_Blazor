@@ -28,6 +28,11 @@ namespace Blog_API.Repository
             return blogContext.Users.ToList();
         }
 
+        public User GetUserByCommentId(int commentId)
+        {
+            return blogContext.Users.FirstOrDefault(x => x.Id == blogContext.Comments.FirstOrDefault(x => x.Id == commentId).UserId);
+        }
+
         public User GetUserById(int id)
         {
             return blogContext.Users.FirstOrDefault(x => x.Id == id);

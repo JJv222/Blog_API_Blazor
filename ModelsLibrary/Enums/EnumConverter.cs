@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelsLibrary.Enums
 {
-    public class EnumConverter
+    public static class EnumConverter
     {
         public static string EnumToString(Enum enumValue)
         {

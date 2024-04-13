@@ -84,5 +84,11 @@ namespace Blog_API.Repository
             var post = blogcontext.Posts.Include(p=>p.User).FirstOrDefault(x => x.Id == id);
             return post.User.Username;
         }
+
+        public bool DeletePost(int postId)
+        {
+            blogcontext.Remove(blogcontext.Posts.FirstOrDefault(x => x.Id == postId));
+            return SaveChanges();
+        }
     }
 }

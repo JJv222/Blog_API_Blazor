@@ -9,6 +9,7 @@ namespace Blog_API.Interfaces
         ICollection<User> GetAllUsers();
         User GetUserById(int id);
         User GetUserByName(string username);
+        User GetUserByCommentId(int commentId);
         int GetUserIdByName(string username);
     }
 }

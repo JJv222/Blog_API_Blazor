@@ -1,5 +1,6 @@
 ﻿using Blog_API.Data;
 using Blog_API.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using ModelsLibrary;
 using ModelsLibrary.CommentDto;
 
@@ -76,6 +77,23 @@ namespace Blog_API.Repository
                 PostId = commentRequest.PostId,
                 UserId = userId
             };
+        }
+
+        public string GetUserNameFromComment(int commentId)
+        {
+            var comment = blogContext.Comments.Include(p => p.User).FirstOrDefault(x => x.Id == commentId).User.Username;
+            return comment;
+        }
+
+        public bool DeleteComment(int commentId)
+        {
+            blogContext.Remove(blogContext.Comments.FirstOrDefault(x => x.Id == commentId));
+            return SaveChanges();
+        }
+
+        public List<int> GetCommentIdsToDelete(int postId)
+        {
+            return blogContext.Comments.Where(x => x.PostId == postId).Select(x=> x.Id).ToList();
         }
     }
 }

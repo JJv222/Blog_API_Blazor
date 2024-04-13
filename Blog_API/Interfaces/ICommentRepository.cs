@@ -15,5 +15,8 @@ namespace Blog_API.Interfaces
         Comment CommentCreateToComment(CommentDtoCreate commentCreate,int userId);
         bool UpdateComment(Comment comment);
         Comment CommenRequestToComment(CommentDtoPutRequest commentRequest, int userId);
+        string GetUserNameFromComment(int commentId);
+        bool DeleteComment(int commentId);
+        List<int> GetCommentIdsToDelete(int postId);
     }
 }

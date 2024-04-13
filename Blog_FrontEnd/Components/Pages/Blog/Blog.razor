@@ -22,7 +22,7 @@
    else
    {
        <CascadingValue Value="@post">
-       <Post ReturnToPosts="BackToPosts" PostHasBeenEdited="RefreshAfterPostEdit"></Post>
+       <Post ReturnToPosts="BackToPosts" PostHasBeenEdited="RefreshAfterPostEdit" PostHasBeenDeleted="RefreshAfterPostDelete" ></Post>
         </CascadingValue>
    }
     </CascadingValue>
@@ -73,6 +73,11 @@
         PostDtoBlogResponse post = await httpClient.GetFromJsonAsync<PostDtoBlogResponse>(ApiLink + "Post/GetPostWhenUpdated/" + id.ToString());
         var index = posts.FindIndex(p => p.Id == id);
         posts[index] = post;
+        StateHasChanged();
+    }
+    private async Task RefreshAfterPostDelete()
+    {
+        posts = await httpClient.GetFromJsonAsync<List<PostDtoBlogResponse>>(ApiLink + "Post/GetBlog");
         StateHasChanged();
     }
 }

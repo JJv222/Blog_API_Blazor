@@ -1,0 +1,24 @@
+﻿@page "/logoutfun"
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@inject NavigationManager NavigationManager
+
+<div class="alert alert-success position-absolute top-50 start-50 translate-middle">
+    <h3>You have successfully logged out of the application</h3>
+</div>
+
+@code {
+    [CascadingParameter]
+    public HttpContext? httpcontext { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (httpcontext.User.Identity.IsAuthenticated)
+        {
+            await httpcontext.SignOutAsync();
+            NavigationManager.NavigateTo("/login", true);
+        }
+    }
+
+}

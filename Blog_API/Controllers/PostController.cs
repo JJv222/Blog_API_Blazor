@@ -14,15 +14,15 @@ namespace Blog_API.Controllers
     public class PostController : Controller
     {
         private readonly IPostRepository postRepository;
-        private readonly ICommentRepository commentRepository;
         private readonly IUserRepository userRepository;
+        private readonly ICommentRepository commentRepository;
         private readonly IMapper mapper;
         // private MyMapper myMapper;
-        public PostController(IPostRepository postRepository, IMapper mapper, ICommentRepository comentRepository, IUserRepository userRepository) {
+        public PostController(IPostRepository postRepository, IMapper mapper, ICommentRepository commentRepository, IUserRepository userRepository) {
             this.postRepository = postRepository;
             this.mapper = mapper;
-            this.commentRepository = comentRepository;
             this.userRepository = userRepository;
+            this.commentRepository = commentRepository;
         }
         [HttpGet("GetBlog")]
         [ProducesResponseType(200, Type = typeof(List<PostDtoBlogResponse>))]
@@ -102,6 +102,31 @@ namespace Blog_API.Controllers
             {
                 return BadRequest();
             }
+
+            return NoContent();
+        }
+
+        [HttpDelete("Delete/{id}/{Username}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteComment(int id,string Username)
+        {
+            var PostUsername = postRepository.GetUserNameFromPost(id);
+            if (!userRepository.Exists(Username) || PostUsername != Username)
+                return NotFound();
+            if (!postRepository.Exists(id))
+                return NotFound();
+            
+            var comments = commentRepository.GetCommentIdsToDelete(id);
+            foreach (var commentId in comments){
+                if (!commentRepository.DeleteComment(commentId))
+                {
+                    return BadRequest();
+                }
+            }
+            if (!postRepository.DeletePost(id))
+                return BadRequest();
+
 
             return NoContent();
         }

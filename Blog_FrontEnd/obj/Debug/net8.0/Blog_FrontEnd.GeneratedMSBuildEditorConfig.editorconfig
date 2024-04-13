@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XExvZ291dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projekty - VS/Visual Studio/Blog_api_blazor/Blog_FrontEnd/Components/Pages/Account/LogoutFun.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XExvZ291dEZ1bi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projekty - VS/Visual Studio/Blog_api_blazor/Blog_FrontEnd/Components/Pages/Blog/Blog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCbG9nXEJsb2cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

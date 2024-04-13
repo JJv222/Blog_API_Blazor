@@ -38,6 +38,7 @@
                                 {
                                     <EditPostForm isEdit="IsEditPost" EditetPost="EditetPost" EditetCom="RefreshPost" />
                                 }
+                                <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeletePost(post.Id))">Delete</button>
                             }
                         </AuthorizeView>
                     </div>
@@ -45,9 +46,7 @@
 
                 <h3 class="mb-3">Comments</h3>
                 <AuthorizeView>
-                    <CascadingValue Value="CurrentUser">
-                    <NewCommentForm AddedComment="RefreshPost" PostId="post.Id"></NewCommentForm>
-                    </CascadingValue>
+                    <NewCommentForm AddedComment="RefreshPost" PostId="post.Id" CurrentUser="CurrentUser"></NewCommentForm>
                 </AuthorizeView>
                 @if(post.Comments.Count > 0){
                     @foreach (var comment in post.Comments)
@@ -82,6 +81,7 @@
                                         {
                                             <EditCommentForm isEdit="IsEditComment" EditetComment="EditetComment" EditetCom="RefreshPost" />
                                         }
+                                        <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeleteComment(comment.Id))">Delete</button>
                                     }
                                 </AuthorizeView>
                             </div>
@@ -130,6 +130,8 @@
 
     [Parameter]
     public EventCallback<int> PostHasBeenEdited { get; set; }
+    [Parameter]
+    public EventCallback PostHasBeenDeleted { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -166,5 +168,20 @@
         EditetPost = new PostDtoPostResponse();
         IsEditComment = false;
         IsEditPost = false;
+    }
+
+    private async Task DeletePost(int id)
+    {
+        var response = await httpClient.DeleteAsync(ApiLink + "Post/Delete/" + id.ToString() + "/" + CurrentUser.Username);
+        if (response.IsSuccessStatusCode)
+        {
+            await PostHasBeenDeleted.InvokeAsync();
+            await ReturnToPosts.InvokeAsync();
+        }
+    }
+    private async Task DeleteComment(int id)
+    {
+        var response = await httpClient.DeleteAsync(ApiLink + "Comment/Delete/" + id.ToString() + "/" + CurrentUser.Username);
+        await RefreshPost();
     }
 }

@@ -15,5 +15,6 @@ namespace Blog_API.Interfaces
         public bool UpdatePost(Post post);
         Post GetPostForUpdate(int id);
         string GetUserNameFromPost(int id);
+        bool DeletePost(int postId);
     }
 }

@@ -22,10 +22,6 @@
     </EditForm>
     <button class="btn btn-warning mb-3" @onclick="CancelForm">Cancel Adding New Post</button>
 }
-else
-{
-    <button class="btn btn-primary mb-3" @onclick="(()=>isEdit=!isEdit)">łots</button>
-}
 @code {
     [CascadingParameter]
     public string ApiLink { get; set; }
