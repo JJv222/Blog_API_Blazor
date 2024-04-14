@@ -1,4 +1,6 @@
 ﻿using ModelsLibrary;
+using ModelsLibrary.PostDto;
+using ModelsLibrary.UserDto;
 
 namespace Blog_API.Interfaces
 {
@@ -12,5 +14,7 @@ namespace Blog_API.Interfaces
         User GetUserByCommentId(int commentId);
         int GetUserIdByName(string username);
         string GetUserRole(string username);
+        bool CreateUser(User user);
+        User UserCreateToUser(UserDtoPostRequest user);
     }
 }

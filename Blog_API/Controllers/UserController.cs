@@ -49,5 +49,18 @@ namespace Blog_API.Controllers
                 return BadRequest(ModelState);
             else return Ok(role);
         }
+
+        [HttpPost("CreateUser")]
+        [ProducesResponseType(201, Type = typeof(UserDtoPostRequest))]
+        public IActionResult CreateUser([FromBody] UserDtoPostRequest user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            if (userRepository.Exists(user.Username))
+                return BadRequest(ModelState);
+            var userEntity = userRepository.UserCreateToUser(user);
+            userRepository.CreateUser(userEntity);
+            return CreatedAtAction(nameof(GetUserAuth), new { username = user.Username }, user);
+        }
     }
 }

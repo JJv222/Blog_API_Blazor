@@ -1,6 +1,8 @@
 ﻿using Blog_API.Data;
 using Blog_API.Interfaces;
 using ModelsLibrary;
+using ModelsLibrary.PostDto;
+using ModelsLibrary.UserDto;
 using SQLitePCL;
 
 namespace Blog_API.Repository
@@ -11,6 +13,15 @@ namespace Blog_API.Repository
         public UserRepository(BlogContext context)
         {
             blogContext = context;
+        }
+        private bool SaveChanges()
+        {
+            return blogContext.SaveChanges() >= 0 ? true : false;
+        }
+        public bool CreateUser(User user)
+        {
+            blogContext.Add(user);
+            return SaveChanges();
         }
 
         public bool Exists(int id)
@@ -60,6 +71,16 @@ namespace Blog_API.Repository
                 return null;
             }
 
+        }
+        public User UserCreateToUser(UserDtoPostRequest user)
+        {
+            return new  User
+            {
+                Username = user.Username,
+                Password = user.Password,
+                Email = user.Email,
+                Role = ModelsLibrary.Enums.Role.User
+            };
         }
     }
 }
