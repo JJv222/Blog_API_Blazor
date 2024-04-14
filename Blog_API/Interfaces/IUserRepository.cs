@@ -1,4 +1,5 @@
 ﻿using ModelsLibrary;
+using ModelsLibrary.Enums;
 using ModelsLibrary.PostDto;
 using ModelsLibrary.UserDto;
 
@@ -16,6 +17,7 @@ namespace Blog_API.Interfaces
         string GetUserRole(string username);
         bool CreateUser(User user);
         User UserCreateToUser(UserDtoPostRequest user);
+        bool ChangeRole(string userName,Role newRole);
         bool DeleteUser(string username);
     }
 }

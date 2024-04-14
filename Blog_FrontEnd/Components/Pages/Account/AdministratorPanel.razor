@@ -10,22 +10,44 @@
 {
     <p class="alert-danger">@ErrorMessage</p>
 }
+@if (IsEdit)
+{
+    <div class="border-bottom-0 p-2 mx-1 rounded-top d-flex alert-warning row">
+    <h3>Change The Role For: @SelectedUser.Username</h3>
+    </div>
+    <div class="border-top-0 p-2 mb-3 mx-1 rounded-bottom d-flex alert-warning row">
+    <InputSelect @bind-Value="SelectedUser.Role" class="form-control">
+        @foreach (var role in Enum.GetValues(typeof(Role)))
+        {
+            <option value="@role">@EnumConverter.EnumToString((Role)role)</option>
+        }
+     </InputSelect>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-danger" @onclick="(()=>ChangeRole())">Change Role</button>
+            <button class="active btn btn-sm btn bg-warning mx-3" @onclick="(()=>{IsEdit = false; SelectedUser = new UserDto();})">Cancel</button>
+      </div>   
+ </div>
+    
+}
 @if (UserList.Count() > 0)
 {
     <div class="row">
-    @foreach (var user in UserList)
-    {
-            <div class=" col-sm-3 border m-3 p-2 alert-info rounded">
-            <p>Username: @user.Username</p>
-            <i><p>Email: @user.Email</p></i>
-            <p>Role: @EnumConverter.EnumToString(user.Role)</p>
+        @foreach (var user in UserList)
+        {
+            if (user.Username != CurrentUsername)
+            {
+                <div class=" col-sm-3 border m-3 p-2 alert-info rounded">
+                <p>Username: @user.Username</p>
+                <i><p>Email: @user.Email</p></i>
+                <p>Role: @EnumConverter.EnumToString(user.Role)</p>
 
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-danger" @onclick="(()=>DeleUser(user.Username))">Delete User</button>
-                <button class="active btn btn-sm btn bg-warning mx-3">Change Role</button>
+                <div class="d-flex justify-content-center">
+                        <button class="btn btn-danger" @onclick="(()=>{SelectedUser = user;DeleUser(user.Username);})">Delete User</button>
+                    <button class="active btn btn-sm btn bg-warning mx-3" @onclick="(()=>ChooseUser(user))">Change Role</button>
+                </div>
             </div>
-        </div>
-    }
+            }
+        }
     </div>
 }else{
     <p>There is no user</p>
@@ -36,28 +58,76 @@
 @code {
 
     public string ApiLink { get; set; }
-    public HttpClient httpClient { get; set; }
-    private List<UserDto> UserList = new List<UserDto>();
-    private string? ErrorMessage { get; set; }
 
+    public HttpClient httpClient { get; set; }
+
+    private List<UserDto> UserList = new List<UserDto>();
+    private UserDto SelectedUser { get; set; }
+
+    private string? ErrorMessage { get; set; }
+    private string? CurrentUsername { get; set; }
+    private bool IsEdit { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    private void ChooseUser(UserDto user)
+    {
+        SelectedUser = user;
+        IsEdit = true;
+    }
+    private async Task ChangeRole()
+    {
+        if(SelectedUser.Username != null && SelectedUser.Username != CurrentUsername)
+        {
+            string v = EnumConverter.EnumToString(SelectedUser.Role);
+            var resoult = await httpClient.PutAsJsonAsync(ApiLink + "User/ChangeRole/" + SelectedUser.Username,SelectedUser.Role);
+            if (resoult.IsSuccessStatusCode)
+            {
+                SelectedUser = new UserDto();
+                IsEdit = false;
+                ErrorMessage = null;
+            }
+            else
+            {
+                ErrorMessage = "Role Change Error";
+            }
+        }
+        else
+        {
+            ErrorMessage = "Can not Change Role for this User";
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        var authenticationState = await authenticationStateTask;
+        CurrentUsername = authenticationState.User.Identity.Name;
+
+        IsEdit = false;
         ApiLink = "https://localhost:44321/api/";
         httpClient = new HttpClient();
         UserList = await httpClient.GetFromJsonAsync<List<UserDto>>(ApiLink + "User/GetAllUsers");
     }
     private async void DeleUser(string Username)
     {
-        var Response =  await httpClient.DeleteAsync(ApiLink + "User/Delete/" + Username);
-        try
+        if (CurrentUsername != SelectedUser.Username)
         {
+            var Response = await httpClient.DeleteAsync(ApiLink + "User/Delete/" + Username);
+            try
+            {
+                UserList.Remove(UserList.FirstOrDefault(x => x.Username == Username));
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = e.Message;
+            }
             UserList.Remove(UserList.FirstOrDefault(x => x.Username == Username));
-        }catch(Exception e)
-        {
-            ErrorMessage = e.Message;
+            StateHasChanged();
         }
-        UserList.Remove(UserList.FirstOrDefault(x => x.Username == Username));
-        StateHasChanged();
+        else
+        {
+            ErrorMessage = "You are trying to delete your account";
+        }
     }
 }

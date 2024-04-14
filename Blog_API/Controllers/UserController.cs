@@ -49,7 +49,7 @@ namespace Blog_API.Controllers
             else return Ok(user);
         }
         [HttpGet("GetRole/{username}")]
-        [ProducesResponseType(200, Type = typeof(Role))]
+        [ProducesResponseType(200, Type = typeof(string))]
         public IActionResult GetUserRole(string username)
         {
             if (!ModelState.IsValid)
@@ -74,6 +74,25 @@ namespace Blog_API.Controllers
             var userEntity = userRepository.UserCreateToUser(user);
             userRepository.CreateUser(userEntity);
             return CreatedAtAction(nameof(GetUserAuth), new { username = user.Username }, user);
+        }
+
+        [HttpPut("ChangeRole/{username}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult ChangeRole(string username,[FromBody] Role role)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!userRepository.Exists(username))
+                return NotFound(ModelState);
+
+            if(role == Role.None)
+                return BadRequest(ModelState);
+
+            if (!userRepository.ChangeRole(username,role))
+                return BadRequest(ModelState);
+            return NoContent();
         }
 
         [HttpDelete("Delete/{username}")]

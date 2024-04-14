@@ -1,6 +1,7 @@
 ﻿using Blog_API.Data;
 using Blog_API.Interfaces;
 using ModelsLibrary;
+using ModelsLibrary.Enums;
 using ModelsLibrary.PostDto;
 using ModelsLibrary.UserDto;
 using SQLitePCL;
@@ -86,6 +87,17 @@ namespace Blog_API.Repository
         public bool DeleteUser(string username)
         {
             blogContext.Remove(blogContext.Users.FirstOrDefault(x => x.Username == username));
+            return SaveChanges();
+        }
+
+        public bool ChangeRole(string userName,Role newRole)
+        {
+            var oldUser =  blogContext.Users.FirstOrDefault(x=>x.Username==userName);
+            if (oldUser == null)
+                return false;
+
+            oldUser.Role = newRole;
+            blogContext.Update(oldUser);
             return SaveChanges();
         }
     }

@@ -15,13 +15,13 @@
         <div class="mb-3 d-grid gap-2">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        <div class="mb-3 text-center">
+        <div class="mb-3 d-grid gap-2">
             <span class="text-danger">@ErrorMessage</span>
         </div>
         <DataAnnotationsValidator />
         <ValidationSummary />
     </EditForm>
-    <button class="btn btn-warning mb-3" @onclick="CancelForm">Cancel Adding New Post</button>
+    <button class="btn-warning mb-3 rounded" @onclick="CancelForm">Cancel Editing The Post</button>
 }
 @code {
     [Parameter]

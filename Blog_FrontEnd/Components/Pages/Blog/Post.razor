@@ -35,7 +35,7 @@
                                 {
                                 <EditPostForm isEdit="IsEditPost" EditetPost="EditetPost" EditetCom="RefreshPost" CurrentUser="CurrentUser" />
                                 }
-                                <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeletePost(post.Id))">Delete</button>
+                                <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeletePost(post.Id))">Delete Post</button>
                         </AuthorizeView>
                     </div>
                 </div>
@@ -65,18 +65,33 @@
                                         </p>
                                     </div>
                                 </div>
-                                <AuthorizeView> 
+                                <AuthorizeView Roles="User" > 
+                                    @if (comment.User?.Username == CurrentUser.Username)
+                                    {
                                         @if (!IsEditComment)
                                         {
                                             <button class="active btn btn-sm btn bg-warning" @onclick="(()=>EditComment(comment))">Edit</button>
                                         }
-                                        else if(comment.Id == EditetComment.Id)
+                                        else if (comment.Id == EditetComment.Id)
                                         {
                                             <EditCommentForm isEdit="IsEditComment" EditetComment="EditetComment" EditetCom="RefreshPost" />
                                         }
                                         <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeleteComment(comment.Id))">Delete</button>
-                                    
+                                    }
                                 </AuthorizeView>
+                                    <AuthorizeView Roles="Admin,Moderator">
+
+                                        @if (!IsEditComment)
+                                        {
+                                            <button class="active btn btn-sm btn bg-warning" @onclick="(()=>EditComment(comment))">Edit</button>
+                                        }
+                                        else if (comment.Id == EditetComment.Id)
+                                        {
+                                            <EditCommentForm isEdit="IsEditComment" EditetComment="EditetComment" EditetCom="RefreshPost" />
+                                        }
+                                        <button class="active btn btn-sm btn bg-danger mx-3" @onclick="(()=>DeleteComment(comment.Id))">Delete</button>
+                                    </AuthorizeView>
+                                        
                             </div>
                         </div>
                     }
