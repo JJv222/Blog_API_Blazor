@@ -3,10 +3,7 @@
   "WorkspaceRootPath": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\blog\\editpostform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\pages\\blog\\post.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{7E117F53-D781-45D7-9051-3B8B02B4E411}|..\\Blog_FrontEnd\\Blog_FrontEnd.csproj|d:\\projekty - vs\\visual studio\\blog_api_blazor\\blog_frontend\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,27 +26,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EditPostForm.razor",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\EditPostForm.razor",
-              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\EditPostForm.razor",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\EditPostForm.razor",
-              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\EditPostForm.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAABaAAAA",
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABMAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-14T19:33:12.545Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Post.razor",
-              "DocumentMoniker": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
-              "RelativeDocumentMoniker": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
-              "ToolTip": "D:\\Projekty - VS\\Visual Studio\\Blog_api_blazor\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
-              "RelativeToolTip": "..\\Blog_FrontEnd\\Components\\Pages\\Blog\\Post.razor",
-              "ViewState": "AQIAABMAAAAAAAAAAAAAACMAAACEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-14T18:07:31.312Z",
+              "WhenOpened": "2024-04-14T21:40:16.698Z",
               "EditorCaption": ""
             }
           ]
