@@ -90,5 +90,10 @@ namespace Blog_API.Repository
             blogcontext.Remove(blogcontext.Posts.FirstOrDefault(x => x.Id == postId));
             return SaveChanges();
         }
+
+        public ICollection<int> GetUserPosts(string Username)
+        {
+            return blogcontext.Posts.Where(x=> x.User.Username == Username).Select(x => x.Id).ToList();
+        }
     }
 }

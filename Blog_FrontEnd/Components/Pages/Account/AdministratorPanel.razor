@@ -1,0 +1,63 @@
+﻿@page "/admin"
+@using Microsoft.AspNetCore.Authorization
+@using ModelsLibrary.Enums
+@using ModelsLibrary.UserDto
+@attribute [Authorize (Roles = "Admin")]
+@rendermode InteractiveServer
+
+<h3>AdministratorPanel</h3>
+@if(ErrorMessage != null)
+{
+    <p class="alert-danger">@ErrorMessage</p>
+}
+@if (UserList.Count() > 0)
+{
+    <div class="row">
+    @foreach (var user in UserList)
+    {
+            <div class=" col-sm-3 border m-3 p-2 alert-info rounded">
+            <p>Username: @user.Username</p>
+            <i><p>Email: @user.Email</p></i>
+            <p>Role: @EnumConverter.EnumToString(user.Role)</p>
+
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-danger" @onclick="(()=>DeleUser(user.Username))">Delete User</button>
+                <button class="active btn btn-sm btn bg-warning mx-3">Change Role</button>
+            </div>
+        </div>
+    }
+    </div>
+}else{
+    <p>There is no user</p>
+}
+
+
+
+@code {
+
+    public string ApiLink { get; set; }
+    public HttpClient httpClient { get; set; }
+    private List<UserDto> UserList = new List<UserDto>();
+    private string? ErrorMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        ApiLink = "https://localhost:44321/api/";
+        httpClient = new HttpClient();
+        UserList = await httpClient.GetFromJsonAsync<List<UserDto>>(ApiLink + "User/GetAllUsers");
+    }
+    private async void DeleUser(string Username)
+    {
+        var Response =  await httpClient.DeleteAsync(ApiLink + "User/Delete/" + Username);
+        try
+        {
+            UserList.Remove(UserList.FirstOrDefault(x => x.Username == Username));
+        }catch(Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
+        UserList.Remove(UserList.FirstOrDefault(x => x.Username == Username));
+        StateHasChanged();
+    }
+}

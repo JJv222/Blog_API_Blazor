@@ -82,5 +82,11 @@ namespace Blog_API.Repository
                 Role = ModelsLibrary.Enums.Role.User
             };
         }
+
+        public bool DeleteUser(string username)
+        {
+            blogContext.Remove(blogContext.Users.FirstOrDefault(x => x.Username == username));
+            return SaveChanges();
+        }
     }
 }

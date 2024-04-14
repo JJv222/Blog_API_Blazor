@@ -16,5 +16,6 @@ namespace Blog_API.Interfaces
         string GetUserRole(string username);
         bool CreateUser(User user);
         User UserCreateToUser(UserDtoPostRequest user);
+        bool DeleteUser(string username);
     }
 }

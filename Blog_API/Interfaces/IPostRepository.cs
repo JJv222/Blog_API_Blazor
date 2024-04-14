@@ -7,6 +7,7 @@ namespace Blog_API.Interfaces
     {
         bool Exists (int id );
         ICollection<Post> GetAllPostsForBlog ();
+        ICollection<int> GetUserPosts(string Username);
         Post GetPostById ( int id );
         int CountPosts();
         bool SaveChanges();
