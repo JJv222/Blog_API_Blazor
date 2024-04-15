@@ -37,7 +37,7 @@ namespace Blog_API.Repository
 
         public ICollection<User> GetAllUsers()
         {
-            return blogContext.Users.ToList();
+            return blogContext.Users.OrderBy(k => k.Role).ToList();
         }
 
         public User GetUserByCommentId(int commentId)
